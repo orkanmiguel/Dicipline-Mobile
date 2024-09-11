@@ -1,51 +1,77 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, YellowBox } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Titulo, Form } from "./components";
+import { Titulo, Form, Week } from "./components";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
-        style={styles.background}
-      />
+    <LinearGradient
+      // Background Linear Gradient
+      colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
+      style={styles.container}
+    >
       <Titulo />
+      <Week />
+
       <Form />
-      <LinearGradient
-        // Button Linear Gradient
-        colors={["#4c669f", "#3b5998", "#192f6a"]}
-        style={styles.button}
-      >
-        <Text style={styles.text}>Sign in with Facebook</Text>
-      </LinearGradient>
-    </View>
+      <View style={styles.containerNav}>
+        <View style={styles.ContainerCrono}>
+          <FontAwesome5 name="calendar-alt" size={30} color="yellow" />
+          <Text style={styles.nav}>Calendario</Text>
+        </View>
+        <View style={styles.ContainerCrono}>
+          <MaterialCommunityIcons
+            name="weight-lifter"
+            size={30}
+            color="yellow"
+          />
+          <Text style={styles.nav}>Estadisticas</Text>
+        </View>
+
+        <View style={styles.ContainerCrono}>
+          <Ionicons name="timer" size={30} color="yellow" />
+          <Text style={styles.nav}>Cronometro</Text>
+        </View>
+      </View>
+      {/*   <View style={styles.form}>
+        <Text>hi</Text>
+      </View> */}
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  form: {
     flex: 1,
-    alignItems: "flex-start",
-    paddingLeft: 15,
-    justifyContent: "center",
+    paddingBottom: 15,
+    backgroundColor: "brown",
+  },
+  container: {
+    flex: 10,
     backgroundColor: "red",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "stretch",
   },
-  background: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: "100%",
-  },
-  button: {
-    padding: 15,
+  containerNav: {
+    flex: 0.15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 15,
     alignItems: "center",
     borderRadius: 5,
+
+    height: 90,
   },
-  text: {
-    backgroundColor: "transparent",
-    fontSize: 15,
-    color: "#fff",
+  nav: {
+    color: "yellow",
+  },
+  ContainerCrono: {
+    color: "yellow",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

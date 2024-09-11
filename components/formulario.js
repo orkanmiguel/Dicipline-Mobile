@@ -1,47 +1,63 @@
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  View,
+} from "react-native";
 import { Ejercicio } from "./entrenamiento";
+
+const data = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+  { id: 7 },
+  { id: 7 },
+  { id: 7 },
+  { id: 7 },
+];
 
 export default () => {
   return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.titulo}>Ejercicios dia</Text>
-        <View style={styles.containerExercise}>
-          <Ejercicio></Ejercicio>
-          <Ejercicio></Ejercicio>
-          <Ejercicio></Ejercicio>
-          <Ejercicio></Ejercicio>
-          <Ejercicio></Ejercicio>
-        </View>
-      </View>
-    </>
+    <ScrollView style={styles.container}>
+      {data.map((val) => {
+        return (
+          <View style={styles.scrollView}>
+            <Ejercicio style={styles.exercise}></Ejercicio>
+          </View>
+        );
+      })}
+      {/* <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio>
+      <Ejercicio style={styles.exercise}></Ejercicio> */}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  titulo: {
-    color: "white",
-    fontSize: 20,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    paddingBottom: 50,
-  },
   container: {
-    flex: 4,
-    justifyContent: "center",
-    alignContent: "space-evenly",
-    alignItems: "stretch",
-    paddingBottom: 15,
+    /*   backgroundColor: "black", */
+    flex: 1,
+  },
+  scrollView: {
+    borderRadius: 15,
+    marginTop: 6,
+    /*     backgroundColor: "pink", */
+    marginHorizontal: 20,
   },
   text: {
-    color: "white",
-    fontSize: 18,
-    borderColor: "black",
+    fontSize: 42,
   },
-  containerExercise: {
-    backgroundColor: "pink",
-    justifyContent: "space-between",
-    width: 180,
-    height: 1000,
+  exercise: {
+    paddingTop: 10,
   },
 });

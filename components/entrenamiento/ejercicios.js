@@ -1,8 +1,13 @@
 import { StyleSheet, Text, View, Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
+//componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default () => {
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
+      style={styles.container}
+    >
       <View style={styles.containerImg}>
         <Image
           style={styles.imagen}
@@ -10,27 +15,48 @@ export default () => {
         />
       </View>
 
-      <View>
-        <Text style={styles.titulo}>Pull ups</Text>
-        <Text style={styles.titulo}>3X4</Text>
-        <Text style={styles.titulo}>rest 3:00</Text>
+      <View style={styles.ejercicio}>
+        <View style={styles.containerStart}>
+          <Text style={styles.start}>*</Text>
+          <Text style={styles.start}>*</Text>
+          <Text style={styles.start}>*</Text>
+          <Text style={styles.start}>*</Text>
+          <Text style={styles.start}>*</Text>
+        </View>
+        <Text style={styles.titulo}>Pull ups + 10kg</Text>
+        <View style={styles.reps}>
+          <Text style={styles.titulo}>3X4</Text>
+          <Text style={styles.titulo}>rest 3:00</Text>
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  titulo: {
-    color: "white",
+  containerStart: {
+    /* backgroundColor: "pink", */
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  start: {
+    color: "yellow",
     fontSize: 20,
-    left: 150,
+  },
+  ejercicio: {
+    /*     backgroundColor: "green", */
+  },
+  titulo: {
+    paddingTop: 10,
+    color: "white",
+    fontSize: 25,
   },
   container: {
+    backgroundColor: "brown",
+    borderRadius: 15,
+    height: 120,
     flexDirection: "row",
-    backgroundColor: "black",
-    borderRadius: 8,
-    width: "250%",
-    height: "20%",
+    justifyContent: "space-around",
   },
   /*   text: {
     color: "white",
@@ -38,15 +64,20 @@ const styles = StyleSheet.create({
     borderColor: "black",
   }, */
   imagen: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: 8,
     paddingRight: 10,
   },
   containerImg: {
     justifyContent: "center",
-    /* backgroundColor: "pink", */
+
+    /*  backgroundColor: "pink", */
     alignItems: "center",
-    width: 100,
+  },
+  reps: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    /*  backgroundColor: "red", */
   },
 });
