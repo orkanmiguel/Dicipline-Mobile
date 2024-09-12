@@ -17,9 +17,9 @@ const data = [
   { id: 5 },
   { id: 6 },
   { id: 7 },
-  { id: 7 },
-  { id: 7 },
-  { id: 7 },
+  { id: 8 },
+  { id: 9 },
+  { id: 10 },
 ];
 
 export default () => {
@@ -28,7 +28,8 @@ export default () => {
       {data.map((val) => {
         return (
           <View style={styles.scrollView}>
-            <Ejercicio style={styles.exercise}></Ejercicio>
+            {/* <Ejercicio style={styles.exercise}></Ejercicio> */}
+            <Text>{val.id}</Text>
           </View>
         );
       })}

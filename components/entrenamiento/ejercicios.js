@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Entypo from "@expo/vector-icons/Entypo";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default () => {
@@ -17,11 +18,11 @@ export default () => {
 
       <View style={styles.ejercicio}>
         <View style={styles.containerStart}>
-          <Text style={styles.start}>*</Text>
-          <Text style={styles.start}>*</Text>
-          <Text style={styles.start}>*</Text>
-          <Text style={styles.start}>*</Text>
-          <Text style={styles.start}>*</Text>
+          <Entypo name="star" size={26} color="yellow" />
+          <Entypo name="star" size={26} color="yellow" />
+          <Entypo name="star" size={26} color="yellow" />
+          <Entypo name="star-outlined" size={26} color="yellow" />
+          <Entypo name="star-outlined" size={26} color="yellow" />
         </View>
         <Text style={styles.titulo}>Pull ups + 10kg</Text>
         <View style={styles.reps}>

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, YellowBox } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Titulo, Form, Week } from "./components";
+import { Titulo, Form, Week, Ejemplo } from "./components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -14,7 +14,7 @@ export default function App() {
     >
       <Titulo />
       <Week />
-
+      {/*  <Ejemplo /> */}
       <Form />
       <View style={styles.containerNav}>
         <View style={styles.ContainerCrono}>
