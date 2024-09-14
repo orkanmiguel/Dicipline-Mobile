@@ -22,7 +22,7 @@ const initializeDb = async (db) => {
       PRAGMA journal_mode=OFF;
       PRAGMA temp_store=MEMORY;
       CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
-       name TEXT, serie INTEGER, reps INTEGER
+       name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC, completed INTEGER
       );
       `);
     console.log("DB connected");
@@ -55,9 +55,12 @@ export default function Routines() {
 export function Todos() {
   const db = useSQLiteContext();
 
-  const [routine, setRoutine] = useState("");
+  const [name, setName] = useState("");
   const [serie, setSerie] = useState();
   const [reps, setReps] = useState();
+  const [rest, setRest] = useState("");
+  const [weight, setWeight] = useState();
+  const [completed, setCompleted] = useState();
   const [prevRoutine, setPrevRoutines] = useState([]);
   const [routineID, setRoutineID] = useState("");
   const [visible, setVisible] = useState(false);
@@ -66,7 +69,7 @@ export function Todos() {
     async function fetchRoutine() {
       const result = await db.getAllAsync("SELECT * FROM routine");
       setPrevRoutines(result);
-      console.log("resultado bd:", result);
+      /* console.log("resultado bd:", result); */
     }
     fetchRoutine();
   }, []);
@@ -79,20 +82,29 @@ export function Todos() {
       .reverse()
       .join("-"); */
     let res = await db.runAsync(
-      "INSERT INTO routine (name, serie,reps) values (?,?,?)",
-      [routine, serie, reps]
+      "INSERT INTO routine (name, serie,reps,rest,weight,completed) values (?,?,?,?,?,?)",
+      [name, serie, reps, rest, weight, completed]
     );
 
     Alert.alert("Routina added");
     let lastRoutine = [...prevRoutine];
     lastRoutine.push({
       id: res.lastInsertRowId,
-      routine: routine,
+      name: name,
       serie: serie,
       reps: reps,
+      rest: rest,
+      weight: weight,
+      completed: completed,
     });
+    console.log("last", lastRoutine);
     setPrevRoutines(lastRoutine);
-    setRoutine("");
+    setName("");
+    setSerie("");
+    setReps("");
+    setRest("");
+    setWeight("");
+    setCompleted("");
   };
 
   const editRoutine = async (id) => {
@@ -104,10 +116,10 @@ export function Todos() {
         "SELECT name FROM routine WHERE id = ?",
         [id]
       );
-      console.log("Fetched routine:", result.routine); // Log fetched note
+      console.log("Fetched routine:", result.name); // Log fetched note
 
       // Then set the note
-      setRoutine(result.routine);
+      setName(result.name);
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +139,7 @@ export function Todos() {
         return routine;
       });
     });
-    setRoutine("");
+    setName("");
     setVisible(false);
   };
 
@@ -144,7 +156,7 @@ export function Todos() {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.view}>
         <Text
           style={{
             paddingVertical: 10,
@@ -155,42 +167,45 @@ export function Todos() {
           TEST ROUTINE ADD
         </Text>
         <TextInput
-          style={{
-            borderColor: "black",
-            borderWidth: 1,
-            padding: 5,
-            width: "100%",
-          }}
-          value={routine}
-          onChangeText={setRoutine}
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
           placeholder="nombre"
         />
         <TextInput
-          style={{
-            borderColor: "black",
-            borderWidth: 1,
-            padding: 5,
-            width: "100%",
-          }}
+          style={styles.input}
           value={serie}
           onChangeText={setSerie}
           placeholder="series"
         />
         <TextInput
-          style={{
-            borderColor: "black",
-            borderWidth: 1,
-            padding: 5,
-            width: "100%",
-          }}
+          style={styles.input}
           value={reps}
           onChangeText={setReps}
           placeholder="Repeticiones"
         />
+        <TextInput
+          style={styles.input}
+          value={rest}
+          onChangeText={setRest}
+          placeholder="Descanso minutos"
+        />
+        <TextInput
+          style={styles.input}
+          value={weight}
+          onChangeText={setWeight}
+          placeholder="Peso KG"
+        />
+        <TextInput
+          style={styles.input}
+          value={completed}
+          onChangeText={setCompleted}
+          placeholder="completado"
+        />
         {visible ? (
           <Button title="update" onPress={updateRoutine} color="blue" />
         ) : (
-          <Button title="submit" onPress={addRoutine} color="red" />
+          <Button title="Guardar" onPress={addRoutine} color="brown" />
         )}
         <View>
           {prevRoutine.map((item, index) => {
@@ -200,13 +215,13 @@ export function Todos() {
                 style={{
                   width: "100%",
                   padding: 10,
-                  backgroundColor: "#ffe",
+                  /* backgroundColor: "#ffe", */
                   marginVertical: 10,
                 }}
               >
                 <View>
-                  <Text style={{ fontSize: 15, fontStyle: "italic" }}>
-                    {item.routine}
+                  {/*     <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {item.name}
                   </Text>
                   <Text style={{ fontSize: 18, fontWeight: "600" }}>
                     {item.serie}
@@ -214,6 +229,16 @@ export function Todos() {
                   <Text style={{ fontSize: 18, fontWeight: "600" }}>
                     {item.reps}
                   </Text>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {item.rest}
+                  </Text>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {item.weight}
+                  </Text>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {item.completed}
+                  </Text> */}
+                  <Ejercicio routine={item} />
                 </View>
                 <View
                   style={{
@@ -262,6 +287,11 @@ const styles = StyleSheet.create({
     /*   backgroundColor: "black", */
     flex: 1,
   },
+  //TODO: Revisar para que el formulariom quede centrado, en un modal.
+  /*   view: {
+    justifyContent: "center",
+    alignItems: "center",
+  }, */
   scrollView: {
     borderRadius: 15,
     marginTop: 6,
@@ -273,6 +303,15 @@ const styles = StyleSheet.create({
   },
   exercise: {
     paddingTop: 10,
+  },
+  input: {
+    backgroundColor: "orange",
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 5,
+    margin: 5,
+    width: "80%",
   },
 });
 

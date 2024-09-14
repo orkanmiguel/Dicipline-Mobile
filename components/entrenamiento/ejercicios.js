@@ -3,7 +3,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
-export default () => {
+export default (props) => {
+  let name = props.routine.name;
+  let serie = props.routine.serie;
+  let reps = props.routine.reps;
+  let rest = props.routine.rest;
+  let weight = props.routine.weight;
+  let completed = props.routine.completed;
+
+  console.log("props", name);
   return (
     <LinearGradient
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
@@ -24,10 +32,15 @@ export default () => {
           <Entypo name="star-outlined" size={26} color="yellow" />
           <Entypo name="star-outlined" size={26} color="yellow" />
         </View>
-        <Text style={styles.titulo}>Pull ups + 10kg</Text>
+        <Text style={styles.titulo}>
+          {name} + {weight}KG
+        </Text>
         <View style={styles.reps}>
-          <Text style={styles.titulo}>3X4</Text>
-          <Text style={styles.titulo}>rest 3:00</Text>
+          <Text style={styles.titulo}>
+            {serie} X {reps}
+          </Text>
+
+          <Text style={styles.titulo}> rest: {rest}</Text>
         </View>
       </View>
     </LinearGradient>
