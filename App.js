@@ -14,7 +14,7 @@ export default function App() {
     >
       <Titulo />
       <Week />
-      {/*  <Ejemplo /> */}
+      {/* <Ejemplo /> */}
       <Form />
       <View style={styles.containerNav}>
         <View style={styles.ContainerCrono}>
