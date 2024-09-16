@@ -157,7 +157,7 @@ export function Todos() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.view}>
-        <Text
+        {/*  <Text
           style={{
             paddingVertical: 10,
             textAlign: "center",
@@ -206,7 +206,7 @@ export function Todos() {
           <Button title="update" onPress={updateRoutine} color="blue" />
         ) : (
           <Button title="Guardar" onPress={addRoutine} color="brown" />
-        )}
+        )} */}
         <View>
           {prevRoutine.map((item, index) => {
             return (

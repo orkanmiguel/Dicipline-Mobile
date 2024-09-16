@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View, YellowBox } from "react-native";
+import { StyleSheet, Text, View, YellowBox, Button } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Titulo, Form, Week, Ejemplo } from "./components";
+import { Titulo, Form, Week, Ejemplo, Modal, InsertADD } from "./components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useState } from "react";
 
 export default function App() {
+  const [visibility, setVisibility] = useState(false);
+
+  const pressModal = () => {
+    setVisibility(true);
+  };
   return (
     <LinearGradient
       // Background Linear Gradient
@@ -13,6 +19,45 @@ export default function App() {
       style={styles.container}
     >
       <Titulo />
+      <Modal visibility={visibility}>
+        <InsertADD />
+        <Button
+          title="Cerrar"
+          onPress={() => setVisibility(!visibility)}
+        ></Button>
+      </Modal>
+      <Button
+        color="black"
+        title="Agregar Rutina"
+        onPress={() => pressModal()}
+      />
+      {/*       <Modal animationType="slide" transparent={true} visible={modal}>
+        <View
+          style={{
+            alignItems: "stretch",
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#eee",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 25,
+              borderRadius: 25,
+            }}
+          >
+            <Text>Soy un modal</Text>
+            <Button
+              title="Cerrar modal"
+              onPress={() => setModal(!modal)}
+            ></Button>
+          </View>
+        </View>
+      </Modal> */}
+
       <Week />
       {/* <Ejemplo /> */}
       <Form />
