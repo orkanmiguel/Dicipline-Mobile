@@ -157,56 +157,6 @@ export function Todos() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.view}>
-        {/*  <Text
-          style={{
-            paddingVertical: 10,
-            textAlign: "center",
-            fontWeight: "500",
-          }}
-        >
-          TEST ROUTINE ADD
-        </Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-          placeholder="nombre"
-        />
-        <TextInput
-          style={styles.input}
-          value={serie}
-          onChangeText={setSerie}
-          placeholder="series"
-        />
-        <TextInput
-          style={styles.input}
-          value={reps}
-          onChangeText={setReps}
-          placeholder="Repeticiones"
-        />
-        <TextInput
-          style={styles.input}
-          value={rest}
-          onChangeText={setRest}
-          placeholder="Descanso minutos"
-        />
-        <TextInput
-          style={styles.input}
-          value={weight}
-          onChangeText={setWeight}
-          placeholder="Peso KG"
-        />
-        <TextInput
-          style={styles.input}
-          value={completed}
-          onChangeText={setCompleted}
-          placeholder="completado"
-        />
-        {visible ? (
-          <Button title="update" onPress={updateRoutine} color="blue" />
-        ) : (
-          <Button title="Guardar" onPress={addRoutine} color="brown" />
-        )} */}
         <View>
           {prevRoutine.map((item, index) => {
             return (
@@ -220,24 +170,6 @@ export function Todos() {
                 }}
               >
                 <View>
-                  {/*     <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.name}
-                  </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.serie}
-                  </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.reps}
-                  </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.rest}
-                  </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.weight}
-                  </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                    {item.completed}
-                  </Text> */}
                   <Ejercicio routine={item} />
                 </View>
                 <View

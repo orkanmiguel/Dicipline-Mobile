@@ -31,33 +31,6 @@ export default function App() {
         title="Agregar Rutina"
         onPress={() => pressModal()}
       />
-      {/*       <Modal animationType="slide" transparent={true} visible={modal}>
-        <View
-          style={{
-            alignItems: "stretch",
-            justifyContent: "center",
-            flex: 1,
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "#eee",
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 25,
-              borderRadius: 25,
-            }}
-          >
-            <Text>Soy un modal</Text>
-            <Button
-              title="Cerrar modal"
-              onPress={() => setModal(!modal)}
-            ></Button>
-          </View>
-        </View>
-      </Modal> */}
-
       <Week />
       {/* <Ejemplo /> */}
       <Form />

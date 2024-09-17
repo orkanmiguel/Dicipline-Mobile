@@ -14,7 +14,6 @@ export default () => {
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <Text style={styles.text}>Dicipline</Text>
       </ImageBackground>
-      {/*        */}
     </View>
   );
 };
