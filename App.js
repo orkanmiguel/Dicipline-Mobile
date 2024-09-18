@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, YellowBox, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  YellowBox,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Titulo, Form, Week, Ejemplo, Modal, InsertADD } from "./components";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -32,6 +39,7 @@ export default function App() {
         onPress={() => pressModal()}
       />
       <Week />
+
       {/* <Ejemplo /> */}
       <Form />
       <View style={styles.containerNav}>

@@ -19,15 +19,17 @@ const initializeDb = async (db) => {
   }
 };
 
-export default function Routines() {
+export default function Routines(props) {
+  /* console.log("props function", props); */
   return (
     <SQLiteProvider databaseName="./dicipline.db" onInit={initializeDb}>
-      <Todos />
+      <Todos props={props} />
     </SQLiteProvider>
   );
 }
 
-export function Todos({ children, visibility }) {
+export function Todos({ props }) {
+  /*  console.log("props todos", props.data); */
   const db = useSQLiteContext();
 
   const [name, setName] = useState("");

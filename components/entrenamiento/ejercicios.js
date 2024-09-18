@@ -11,13 +11,16 @@ export default (props) => {
   let weight = props.routine.weight;
   let completed = props.routine.completed;
 
+  const touchImagen = () => {
+    console.log("imagen");
+  };
   console.log("props", name);
   return (
     <LinearGradient
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
-      <View style={styles.containerImg}>
+      <View style={styles.containerImg} onPress={() => touchImagen()}>
         <Image
           style={styles.imagen}
           source={require("../../assets/pullups.png")}

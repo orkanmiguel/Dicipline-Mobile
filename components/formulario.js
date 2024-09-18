@@ -13,6 +13,8 @@ import {
 import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
 import { Ejercicio } from "./entrenamiento";
 import { StatusBar } from "expo-status-bar";
+import Modal from "./modal";
+import InsertADD from "./add";
 
 const initializeDb = async (db) => {
   try {
@@ -65,6 +67,11 @@ export function Todos() {
   const [routineID, setRoutineID] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const [visibility, setVisibility] = useState(false);
+
+  const pressModal = () => {
+    setVisibility(true);
+  };
   useEffect(() => {
     async function fetchRoutine() {
       const result = await db.getAllAsync("SELECT * FROM routine");
@@ -109,17 +116,22 @@ export function Todos() {
 
   const editRoutine = async (id) => {
     setRoutineID(id);
-    setVisible(true);
+    setVisibility(true);
     try {
       // Fetch the note first
       const result = await db.getFirstAsync(
-        "SELECT name FROM routine WHERE id = ?",
+        "SELECT name, serie, reps, rest, weight FROM routine WHERE id = ?",
         [id]
       );
       console.log("Fetched routine:", result.name); // Log fetched note
 
       // Then set the note
       setName(result.name);
+      setSerie(result.serie);
+      setReps(result.reps);
+      setRest(result.rest);
+      setWeight(result.weight);
+      setCompleted(result.completed);
     } catch (error) {
       console.log(error);
     }
@@ -157,6 +169,13 @@ export function Todos() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.view}>
+        <Modal visibility={visibility}>
+          <InsertADD data={[name, serie, reps, rest, weight]} />
+          <Button
+            title="Cerrar"
+            onPress={() => setVisibility(!visibility)}
+          ></Button>
+        </Modal>
         <View>
           {prevRoutine.map((item, index) => {
             return (
@@ -169,9 +188,9 @@ export function Todos() {
                   marginVertical: 10,
                 }}
               >
-                <View>
+                <TouchableOpacity onPress={() => editRoutine(item.id)}>
                   <Ejercicio routine={item} />
-                </View>
+                </TouchableOpacity>
                 <View
                   style={{
                     display: "flex",
