@@ -42,25 +42,6 @@ export default function App() {
 
       {/* <Ejemplo /> */}
       <Form />
-      <View style={styles.containerNav}>
-        <View style={styles.ContainerCrono}>
-          <FontAwesome5 name="calendar-alt" size={30} color="yellow" />
-          <Text style={styles.nav}>Calendario</Text>
-        </View>
-        <View style={styles.ContainerCrono}>
-          <MaterialCommunityIcons
-            name="weight-lifter"
-            size={30}
-            color="yellow"
-          />
-          <Text style={styles.nav}>Estadisticas</Text>
-        </View>
-
-        <View style={styles.ContainerCrono}>
-          <Ionicons name="timer" size={30} color="yellow" />
-          <Text style={styles.nav}>Cronometro</Text>
-        </View>
-      </View>
       {/*   <View style={styles.form}>
         <Text>hi</Text>
       </View> */}
