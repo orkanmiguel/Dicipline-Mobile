@@ -1,10 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
+import Screen from "../../components/screens/Screen";
+import Titulo from "../../components/titulo";
 
 export default function Cronometer() {
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+    <Screen>
+      <Titulo />
+      <View style={styles.container}>
+        <Text style={{ color: "white" }}>Cronometro</Text>
+      </View>
+    </Screen>
   );
 }
 

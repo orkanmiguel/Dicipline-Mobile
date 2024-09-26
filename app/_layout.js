@@ -7,6 +7,10 @@ export default function RootLayout() {
         name="(tabs)"
         options={{ title: "Home Screen", headerShown: false }}
       />
+      {/*     <Stack.Screen
+        name="[nameEjer]"
+        options={{ title: "Ejercicio", headerShown: true }}
+      /> */}
     </Stack>
   );
 }

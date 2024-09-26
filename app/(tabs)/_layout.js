@@ -25,14 +25,14 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="statistics"
         options={{
-          title: "Statistics",
+          title: "Estadisticas",
           tabBarIcon: ({ color }) => <StatisticsIcon color={color} />,
         }}
       />
       <Tabs.Screen
         name="cronometer"
         options={{
-          title: "cronometer",
+          title: "Cronometro",
           tabBarIcon: ({ color }) => <CronometerIcon color={color} />,
         }}
       />

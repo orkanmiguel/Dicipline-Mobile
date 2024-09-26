@@ -188,10 +188,10 @@ export function Todos() {
                   marginVertical: 10,
                 }}
               >
-                <TouchableOpacity onPress={() => editRoutine(item.id)}>
+                <View>
                   <Ejercicio routine={item} />
-                </TouchableOpacity>
-                <View
+                </View>
+                {/* <View
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -222,7 +222,7 @@ export function Todos() {
                       Edit
                     </Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </View>
             );
           })}

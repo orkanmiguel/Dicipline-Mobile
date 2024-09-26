@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
+import { Link } from "expo-router";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default (props) => {
+  let id = props.routine.id;
   let name = props.routine.name;
   let serie = props.routine.serie;
   let reps = props.routine.reps;
@@ -14,19 +16,22 @@ export default (props) => {
   const touchImagen = () => {
     console.log("imagen");
   };
-  console.log("props", name);
+  console.log("props", id);
   return (
     <LinearGradient
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
-      <View style={styles.containerImg} onPress={() => touchImagen()}>
-        <Image
-          style={styles.imagen}
-          source={require("../../assets/pullups.png")}
-        />
-      </View>
-
+      <Link href={`/${name}`} asChild>
+        <Pressable>
+          <View style={styles.containerImg}>
+            <Image
+              style={styles.imagen}
+              source={require("../../assets/pullups.png")}
+            />
+          </View>
+        </Pressable>
+      </Link>
       <View style={styles.ejercicio}>
         <View style={styles.containerStart}>
           <Entypo name="star" size={26} color="yellow" />

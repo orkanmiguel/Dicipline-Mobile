@@ -1,10 +1,15 @@
+import Screen from "../../components/screens/Screen";
 import { View, Text, StyleSheet } from "react-native";
+import Titulo from "../../components/titulo";
 
 export default function Statistics() {
   return (
-    <View style={styles.container}>
-      <Text>Statics</Text>
-    </View>
+    <Screen>
+      <Titulo />
+      <View style={styles.container}>
+        <Text style={{ color: "white" }}>Estadisticas</Text>
+      </View>
+    </Screen>
   );
 }
 
