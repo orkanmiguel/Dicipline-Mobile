@@ -15,6 +15,7 @@ import { Ejercicio } from "./entrenamiento";
 import { StatusBar } from "expo-status-bar";
 import Modal from "./modal";
 import InsertADD from "./add";
+import { DeleteIcon } from "./icons/Icons";
 
 const initializeDb = async (db) => {
   try {

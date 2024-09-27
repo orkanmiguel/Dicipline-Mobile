@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Link } from "expo-router";
+import { DeleteIcon, EditIcon } from "../icons/Icons";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default (props) => {
@@ -51,6 +52,18 @@ export default (props) => {
           <Text style={styles.titulo}> rest: {rest}</Text>
         </View>
       </View>
+      <View
+        style={{
+          borderRadius: 15,
+          height: 100,
+          flexDirection: "column",
+          justifyContent: "space-around",
+          /* alignItems: "center", */
+        }}
+      >
+        <EditIcon />
+        <DeleteIcon />
+      </View>
     </LinearGradient>
   );
 };
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   ejercicio: {
-    /*     backgroundColor: "green", */
+    /* backgroundColor: "green", */
   },
   titulo: {
     paddingTop: 10,
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
     height: 120,
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: "center",
   },
   /*   text: {
     color: "white",

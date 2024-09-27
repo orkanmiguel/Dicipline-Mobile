@@ -1,93 +1,159 @@
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { Link, Stack } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
+import Screen from "../components/screens/Screen";
 
 export default function Details() {
   const { nameEjer } = useLocalSearchParams();
   return (
-    <ScrollView>
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: "red",
-            textTransform: "capitalize",
-          },
-          headerTintColor: "black",
-          headerLeft: () => {},
-          headerTitle: nameEjer,
-          headerRight: () => {},
-        }}
-      />
-      {/*   <Link href="/">Volver Atras</Link> */}
-      <View>
-        <Text>Nombre del Ejercicio: {nameEjer}</Text>
-        <View style={styles.containerImg}>
-          <Image
-            style={styles.imagen}
-            source={require("../assets/pullups.png")}
-          />
-          <Text style={styles.parrapho}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit atque
-            voluptate fuga ratione cumque. Soluta possimus explicabo
-            exercitationem dignissimos ipsum cupiditate modi quam quia
-            recusandae optio distinctio vel, nobis earum.m
-          </Text>
+    <Screen>
+      <ScrollView>
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: "red",
+              textTransform: "capitalize",
+            },
+            headerTintColor: "black",
+            headerLeft: () => {},
+            headerTitle: nameEjer,
+            headerRight: () => {},
+          }}
+        />
+        {/*   <Link href="/">Volver Atras</Link> */}
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "stretch",
+          }}
+        >
+          <View style={styles.containerInf}>
+            <View style={{}}>
+              <Image
+                style={styles.imagen}
+                source={require("../assets/pullups.png")}
+              />
+            </View>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                /* backgroundColor: "pink", */
+                width: 250,
+                height: 300,
+                borderRadius: 8,
+              }}
+            >
+              <Text style={styles.paragraph}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
+                atque voluptate fuga ratione cumque. Soluta possimus explicabo
+                exercitationem dignissimos ipsum cupiditate modi quam quia
+                recusandae optio distinctio vel, nobis earum.m
+              </Text>
+            </View>
+          </View>
+          <View style={styles.containerInf}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                /* backgroundColor: "pink", */
+                width: 250,
+                height: 300,
+                borderRadius: 8,
+              }}
+            >
+              <Text style={styles.paragraph}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
+                atque voluptate fuga ratione cumque. Soluta possimus explicabo
+                exercitationem dignissimos ipsum cupiditate modi quam quia
+                recusandae optio distinctio vel, nobis earum.m
+              </Text>
+            </View>
+            <View style={{}}>
+              <Image
+                style={styles.imagen}
+                source={require("../assets/pullups.png")}
+              />
+            </View>
+          </View>
+          <View style={styles.containerInf}>
+            <View style={{}}>
+              <Image
+                style={styles.imagen}
+                source={require("../assets/pullups.png")}
+              />
+            </View>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                /* backgroundColor: "pink", */
+                width: 250,
+                height: 300,
+                borderRadius: 8,
+              }}
+            >
+              <Text style={styles.paragraph}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
+                atque voluptate fuga ratione cumque. Soluta possimus explicabo
+                exercitationem dignissimos ipsum cupiditate modi quam quia
+                recusandae optio distinctio vel, nobis earum.m
+              </Text>
+            </View>
+          </View>
+          <View style={styles.containerInf}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                /* backgroundColor: "pink", */
+                width: 250,
+                height: 300,
+                borderRadius: 8,
+              }}
+            >
+              <Text style={styles.paragraph}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
+                atque voluptate fuga ratione cumque. Soluta possimus explicabo
+                exercitationem dignissimos ipsum cupiditate modi quam quia
+                recusandae optio distinctio vel, nobis earum.m
+              </Text>
+            </View>
+            <View style={{}}>
+              <Image
+                style={styles.imagen}
+                source={require("../assets/pullups.png")}
+              />
+            </View>
+          </View>
         </View>
-        <View style={styles.containerImg}>
-          <Image
-            style={styles.imagen}
-            source={require("../assets/pullups.png")}
-          />
-          <Text style={styles.parrapho}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit atque
-            voluptate fuga ratione cumque. Soluta possimus explicabo
-            exercitationem dignissimos ipsum cupiditate modi quam quia
-            recusandae optio distinctio vel, nobis earum.m
-          </Text>
-        </View>
-        <View style={styles.containerImg}>
-          <Image
-            style={styles.imagen}
-            source={require("../assets/pullups.png")}
-          />
-          <Text style={styles.parrapho}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit atque
-            voluptate fuga ratione cumque. Soluta possimus explicabo
-            exercitationem dignissimos ipsum cupiditate modi quam quia
-            recusandae optio distinctio vel, nobis earum.m
-          </Text>
-        </View>
-        <View style={styles.containerImg}>
-          <Image
-            style={styles.imagen}
-            source={require("../assets/pullups.png")}
-          />
-          <Text style={styles.parrapho}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit atque
-            voluptate fuga ratione cumque. Soluta possimus explicabo
-            exercitationem dignissimos ipsum cupiditate modi quam quia
-            recusandae optio distinctio vel, nobis earum.m
-          </Text>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   imagen: {
-    width: 400,
-    height: 400,
     borderRadius: 8,
-    paddingRight: 10,
-    resizeMode: "contain",
+    padding: 10,
+    /*  resizeMode: "contain", */
   },
-  containerImg: {
+  containerInf: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    padding: 20,
 
-    /*  backgroundColor: "pink", */
+    /* backgroundColor: "pink", */
     alignItems: "center",
   },
-  parrapho: {},
+  paragraph: {
+    alignSelf: "flex-start",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 21,
+  },
 });
