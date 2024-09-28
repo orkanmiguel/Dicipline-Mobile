@@ -43,17 +43,6 @@ export function Todos({ props }) {
   const [visible, setVisible] = useState(false);
 
   const addRoutine = async () => {
-    /*   let dateString = new Date().toISOString();
-        let date = dateString
-          .slice(0, dateString.indexOf("T"))
-          .split("-")
-          .reverse()
-          .join("-"); */
-    let res = await db.runAsync(
-      "INSERT INTO routine (name, serie,reps,rest,weight,completed) values (?,?,?,?,?,?)",
-      [name, serie, reps, rest, weight, completed]
-    );
-
     Alert.alert("Routina added");
     let lastRoutine = [...prevRoutine];
     lastRoutine.push({

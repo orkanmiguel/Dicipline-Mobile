@@ -4,7 +4,7 @@ import ScreenModal from "../components/screens/ScreenModal";
 import { CloseIcon } from "./icons/Icons";
 
 export default ({ children, visibility }) => {
-  console.log("children", children);
+  /*  console.log("children", children); */
 
   return (
     <Modal animationType="slide" transparent={true} visible={visibility}>

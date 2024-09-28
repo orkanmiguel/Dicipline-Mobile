@@ -122,8 +122,9 @@ export function Todos() {
     setCompleted("");
     setVisibility(!visibility);
   };
-
+  //TODO: Solo muestra muestra para editar datos del nombre y tiempo (Sera por que son string ?)
   const editRoutine = async (id) => {
+    setVisible(true);
     setRoutineID(id);
     setVisibility(true);
     try {
@@ -132,7 +133,8 @@ export function Todos() {
         "SELECT name, serie, reps, rest, weight FROM routine WHERE id = ?",
         [id]
       );
-      console.log("Fetched routine:", result.name); // Log fetched note
+      console.log("Fetched routine:", result); // Log fetched note
+      console.log("serie", result.serie);
 
       // Then set the note
       setName(result.name);
@@ -141,6 +143,8 @@ export function Todos() {
       setRest(result.rest);
       setWeight(result.weight);
       setCompleted(result.completed);
+
+      console.log("name", name);
     } catch (error) {
       console.log(error);
     }
@@ -161,7 +165,7 @@ export function Todos() {
       });
     });
     setName("");
-    setVisible(false);
+    setVisible(!visible);
   };
 
   const deleteRoutine = async (id) => {
@@ -189,21 +193,39 @@ export function Todos() {
               /*       backgroundColor: "green", */
             }}
           >
-            <Text
-              style={{
-                paddingVertical: 15,
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "yellow",
-                fontSize: 32,
-                marginLeft: 6,
-              }}
-            >
-              Nuevo Ejercicio
-            </Text>
+            {visible ? (
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: "yellow",
+                  fontSize: 32,
+                  marginLeft: 6,
+                }}
+              >
+                Editar Ejercicio
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  paddingVertical: 15,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: "yellow",
+                  fontSize: 32,
+                  marginLeft: 6,
+                }}
+              >
+                Nuevo Ejercicio
+              </Text>
+            )}
 
             <Pressable
-              onPress={() => setVisibility(!visibility)}
+              onPress={() => {
+                setVisibility(!visibility);
+                setVisible(!visible);
+              }}
               style={{
                 alignItems: "flex-end",
                 paddingRight: 6,
@@ -246,21 +268,39 @@ export function Todos() {
           />
           {/*//TODO:Cambiar Botones por pressables para mejor configuracion.  */}
           <View style={{ paddingTop: 20 }}>
-            <Pressable
-              onPress={addRoutine}
-              style={{
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                backgroundColor: "brown",
-                margin: 20,
-                borderRadius: 15,
-              }}
-            >
-              <Text style={{ fontWeight: "bold", color: "white" }}>
-                GUARDAR
-              </Text>
-              <SaveIcon />
-            </Pressable>
+            {visible ? (
+              <Pressable
+                onPress={updateRoutine}
+                style={{
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  backgroundColor: "green",
+                  margin: 20,
+                  borderRadius: 15,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", color: "white" }}>
+                  ACTUALIZAR
+                </Text>
+                <SaveIcon />
+              </Pressable>
+            ) : (
+              <Pressable
+                onPress={addRoutine}
+                style={{
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  backgroundColor: "brown",
+                  margin: 20,
+                  borderRadius: 15,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", color: "white" }}>
+                  GUARDAR
+                </Text>
+                <SaveIcon />
+              </Pressable>
+            )}
 
             {/*  <Button title="Guardar" onPress={addRoutine} color="brown" /> */}
             {/*  <Button title="Cerrar" onPress={() => setVisibility(!visibility)} /> */}
@@ -298,43 +338,11 @@ export function Todos() {
                       <DeleteIcon onPress={() => deleteRoutine(item.id)} />
                     </Ejercicio>
                   </View>
-                  {/* <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <TouchableOpacity style={{ margin: 5 }}>
-                    <Text
-                      style={{
-                        backgroundColor: "red",
-                        padding: 10,
-                        color: "white",
-                      }}
-                      onPress={() => deleteRoutine(item.id)}
-                    >
-                      Del
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{ margin: 5 }}>
-                    <Text
-                      style={{
-                        backgroundColor: "blue",
-                        padding: 10,
-                        color: "white",
-                      }}
-                      onPress={() => editRoutine(item.id)}
-                    >
-                      Edit
-                    </Text>
-                  </TouchableOpacity>
-                </View> */}
                 </View>
               );
             })}
           </View>
-          <StatusBar style="auto" />
+          {/*  <StatusBar style="auto" /> */}
         </View>
       </ScrollView>
     </>
