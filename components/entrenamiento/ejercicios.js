@@ -6,13 +6,18 @@ import { DeleteIcon, EditIcon } from "../icons/Icons";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default (props) => {
+  /* console.log("children eje:", props.children); */
+
   let id = props.routine.id;
   let name = props.routine.name;
   let serie = props.routine.serie;
   let reps = props.routine.reps;
   let rest = props.routine.rest;
   let weight = props.routine.weight;
-  let completed = props.routine.completed;
+
+  //TODO: Deprecated, este dato solo se guarda al completar todas las series
+  //TODO: y rutina, esto es es un update.
+  /*  let completed = props.routine.completed; */
 
   const touchImagen = () => {
     console.log("imagen");
@@ -61,8 +66,10 @@ export default (props) => {
           /* alignItems: "center", */
         }}
       >
-        <EditIcon />
-        <DeleteIcon />
+        {props.children[0]}
+        {props.children[1]}
+        {/* <EditIcon /> */}
+        {/* <DeleteIcon /> */}
       </View>
     </LinearGradient>
   );

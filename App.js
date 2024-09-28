@@ -26,18 +26,7 @@ export default function App() {
       style={styles.container}
     >
       <Titulo />
-      <Modal visibility={visibility}>
-        <InsertADD />
-        <Button
-          title="Cerrar"
-          onPress={() => setVisibility(!visibility)}
-        ></Button>
-      </Modal>
-      <Button
-        color="black"
-        title="Agregar Rutina"
-        onPress={() => pressModal()}
-      />
+
       <Week />
 
       {/* <Ejemplo /> */}

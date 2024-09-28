@@ -9,13 +9,20 @@ import {
   Alert,
   TouchableOpacity,
   ScrollView,
+  Pressable,
 } from "react-native";
 import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
 import { Ejercicio } from "./entrenamiento";
 import { StatusBar } from "expo-status-bar";
 import Modal from "./modal";
 import InsertADD from "./add";
-import { DeleteIcon } from "./icons/Icons";
+import {
+  AddIcon,
+  CloseIcon,
+  DeleteIcon,
+  EditIcon,
+  SaveIcon,
+} from "./icons/Icons";
 
 const initializeDb = async (db) => {
   try {
@@ -94,7 +101,7 @@ export function Todos() {
       [name, serie, reps, rest, weight, completed]
     );
 
-    Alert.alert("Routina added");
+    Alert.alert("Ejercicio Agregado!");
     let lastRoutine = [...prevRoutine];
     lastRoutine.push({
       id: res.lastInsertRowId,
@@ -113,6 +120,7 @@ export function Todos() {
     setRest("");
     setWeight("");
     setCompleted("");
+    setVisibility(!visibility);
   };
 
   const editRoutine = async (id) => {
@@ -159,7 +167,7 @@ export function Todos() {
   const deleteRoutine = async (id) => {
     try {
       await db.runAsync("DELETE FROM routine WHERE id = ?", [id]);
-      Alert.alert("Routine deleted");
+      Alert.alert("Eliminado con exito");
       let lastRoutine = [...prevRoutine].filter((routine) => routine.id != id);
       setPrevRoutines(lastRoutine);
     } catch (error) {
@@ -168,31 +176,129 @@ export function Todos() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.view}>
+    <>
+      {/*//TODO: Configuracion Modal rutina */}
+
+      <View>
         <Modal visibility={visibility}>
-          <InsertADD data={[name, serie, reps, rest, weight]} />
-          <Button
-            title="Cerrar"
-            onPress={() => setVisibility(!visibility)}
-          ></Button>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              /*       backgroundColor: "green", */
+            }}
+          >
+            <Text
+              style={{
+                paddingVertical: 15,
+                textAlign: "center",
+                fontWeight: "bold",
+                color: "yellow",
+                fontSize: 32,
+                marginLeft: 6,
+              }}
+            >
+              Nuevo Ejercicio
+            </Text>
+
+            <Pressable
+              onPress={() => setVisibility(!visibility)}
+              style={{
+                alignItems: "flex-end",
+                paddingRight: 6,
+                paddingBottom: 10,
+                /*    backgroundColor: "pink", */
+              }}
+            >
+              <CloseIcon />
+            </Pressable>
+          </View>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+            placeholder="nombre"
+          />
+          <TextInput
+            style={styles.input}
+            value={serie}
+            onChangeText={setSerie}
+            placeholder="series"
+          />
+          <TextInput
+            style={styles.input}
+            value={reps}
+            onChangeText={setReps}
+            placeholder="Repeticiones"
+          />
+          <TextInput
+            style={styles.input}
+            value={rest}
+            onChangeText={setRest}
+            placeholder="Descanso minutos"
+          />
+          <TextInput
+            style={styles.input}
+            value={weight}
+            onChangeText={setWeight}
+            placeholder="Peso KG"
+          />
+          {/*//TODO:Cambiar Botones por pressables para mejor configuracion.  */}
+          <View style={{ paddingTop: 20 }}>
+            <Pressable
+              onPress={addRoutine}
+              style={{
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                backgroundColor: "brown",
+                margin: 20,
+                borderRadius: 15,
+              }}
+            >
+              <Text style={{ fontWeight: "bold", color: "white" }}>
+                GUARDAR
+              </Text>
+              <SaveIcon />
+            </Pressable>
+
+            {/*  <Button title="Guardar" onPress={addRoutine} color="brown" /> */}
+            {/*  <Button title="Cerrar" onPress={() => setVisibility(!visibility)} /> */}
+          </View>
         </Modal>
-        <View>
-          {prevRoutine.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  width: "100%",
-                  padding: 10,
-                  /* backgroundColor: "#ffe", */
-                  marginVertical: 10,
-                }}
-              >
-                <View>
-                  <Ejercicio routine={item} />
-                </View>
-                {/* <View
+        <View style={{ alignItems: "flex-end", paddingEnd: 20 }}>
+          <AddIcon onPress={() => pressModal()} />
+        </View>
+
+        {/*   <Button
+          color="black"
+          title="Agregar Rutina"
+          onPress={() => pressModal()}
+        /> */}
+      </View>
+      {/*  */}
+      <ScrollView style={styles.container}>
+        <View style={styles.view}>
+          <View>
+            {prevRoutine.map((item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{
+                    width: "100%",
+                    padding: 10,
+                    /* backgroundColor: "#ffe", */
+                    marginVertical: 10,
+                  }}
+                >
+                  <View style={{ margin: 10 }}>
+                    <Ejercicio routine={item}>
+                      {/* //TODO: Editar Rutina y configurar botones de update y no insert */}
+                      <EditIcon onPress={() => editRoutine(item.id)} />
+                      <DeleteIcon onPress={() => deleteRoutine(item.id)} />
+                    </Ejercicio>
+                  </View>
+                  {/* <View
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -224,13 +330,14 @@ export function Todos() {
                     </Text>
                   </TouchableOpacity>
                 </View> */}
-              </View>
-            );
-          })}
+                </View>
+              );
+            })}
+          </View>
+          <StatusBar style="auto" />
         </View>
-        <StatusBar style="auto" />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
 

@@ -1,7 +1,11 @@
-import React from "react";
-import { View, Modal } from "react-native";
+import React, { useState } from "react";
+import { View, Modal, Text, Pressable } from "react-native";
+import ScreenModal from "../components/screens/ScreenModal";
+import { CloseIcon } from "./icons/Icons";
 
 export default ({ children, visibility }) => {
+  console.log("children", children);
+
   return (
     <Modal animationType="slide" transparent={true} visible={visibility}>
       <View
@@ -9,20 +13,10 @@ export default ({ children, visibility }) => {
           alignItems: "stretch",
           justifyContent: "center",
           flex: 1,
+          backgroundColor: "rgba(0,0,0,0.5)",
         }}
       >
-        <View
-          style={{
-            backgroundColor: "#eee",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 25,
-            borderRadius: 25,
-          }}
-        >
-          {children}
-        </View>
+        <ScreenModal>{children}</ScreenModal>
       </View>
     </Modal>
   );
