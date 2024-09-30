@@ -32,7 +32,7 @@ const initializeDb = async (db) => {
       PRAGMA journal_mode=OFF;
       PRAGMA temp_store=MEMORY;
       CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
-       name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC, completed INTEGER
+       name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC,day TEXT, completed INTEGER
       );
       `);
     console.log("DB connected");
@@ -70,6 +70,7 @@ export function Todos() {
   const [reps, setReps] = useState();
   const [rest, setRest] = useState("");
   const [weight, setWeight] = useState();
+  const [day, setDay] = useState();
   const [completed, setCompleted] = useState();
   const [prevRoutine, setPrevRoutines] = useState([]);
   const [routineID, setRoutineID] = useState("");
@@ -97,8 +98,8 @@ export function Todos() {
       .reverse()
       .join("-"); */
     let res = await db.runAsync(
-      "INSERT INTO routine (name, serie,reps,rest,weight,completed) values (?,?,?,?,?,?)",
-      [name, serie, reps, rest, weight, completed]
+      "INSERT INTO routine (name, serie,reps,rest,weight,day,completed) values (?,?,?,?,?,?,?)",
+      [name, serie, reps, rest, weight, day, completed]
     );
 
     Alert.alert("Ejercicio Agregado!");
@@ -110,6 +111,7 @@ export function Todos() {
       reps: reps,
       rest: rest,
       weight: weight,
+      day: day,
       completed: completed,
     });
     console.log("last", lastRoutine);
@@ -119,6 +121,7 @@ export function Todos() {
     setReps("");
     setRest("");
     setWeight("");
+    setDay("");
     setCompleted("");
     setVisibility(!visibility);
   };
@@ -130,7 +133,7 @@ export function Todos() {
     try {
       // Fetch the note first
       const result = await db.getFirstAsync(
-        "SELECT name, serie, reps, rest, weight FROM routine WHERE id = ?",
+        "SELECT name, serie, reps, rest, weight,day FROM routine WHERE id = ?",
         [id]
       );
       console.log("Fetched routine:", result); // Log fetched note
@@ -142,7 +145,7 @@ export function Todos() {
       setReps(result.reps);
       setRest(result.rest);
       setWeight(result.weight);
-      setCompleted(result.completed);
+      setDay(result.day);
 
       console.log("name", name);
     } catch (error) {
@@ -224,7 +227,7 @@ export function Todos() {
             <Pressable
               onPress={() => {
                 setVisibility(!visibility);
-                setVisible(!visible);
+                setVisible(false);
               }}
               style={{
                 alignItems: "flex-end",
@@ -240,31 +243,37 @@ export function Todos() {
             style={styles.input}
             value={name}
             onChangeText={setName}
-            placeholder="nombre"
+            placeholder="Nombre "
           />
           <TextInput
             style={styles.input}
             value={serie}
             onChangeText={setSerie}
-            placeholder="series"
+            placeholder="N° de Series"
           />
           <TextInput
             style={styles.input}
             value={reps}
             onChangeText={setReps}
-            placeholder="Repeticiones"
+            placeholder="Cantidad de Repeticiones"
           />
           <TextInput
             style={styles.input}
             value={rest}
             onChangeText={setRest}
-            placeholder="Descanso minutos"
+            placeholder="Descanso minutos 00:00"
           />
           <TextInput
             style={styles.input}
             value={weight}
             onChangeText={setWeight}
-            placeholder="Peso KG"
+            placeholder="Peso KG "
+          />
+          <TextInput
+            style={styles.input}
+            value={day}
+            onChangeText={setDay}
+            placeholder="Dia de la semana"
           />
           {/*//TODO:Cambiar Botones por pressables para mejor configuracion.  */}
           <View style={{ paddingTop: 20 }}>
