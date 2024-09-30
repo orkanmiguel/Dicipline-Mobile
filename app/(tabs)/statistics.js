@@ -6,17 +6,27 @@ export default function Statistics() {
   return (
     <Screen>
       <Titulo />
-      <View style={styles.container}>
-        <Text style={{ color: "white" }}>Estadisticas</Text>
+      <View style={styles.titulo}>
+        <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+          Estadisticas
+        </Text>
+      </View>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.maximos}>Max de Pull ups : 100</Text>
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  titulo: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  maximos: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
   },
 });

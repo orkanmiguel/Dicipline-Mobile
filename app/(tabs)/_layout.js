@@ -8,6 +8,7 @@ import { Tabs } from "expo-router";
 export default function TabsLayout() {
   return (
     <Tabs
+      initialRouteName="statistics"
       screenOptions={{
         tabBarActiveTintColor: "yellow",
         headerShown: false,
