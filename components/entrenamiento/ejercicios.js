@@ -10,7 +10,7 @@ export default (props) => {
   // TODO: Configurar para que al guardar ejercicio se genere con las estrellas correctas
   const [rating, setRating] = useState(0);
   /* console.log("children eje:", props.children); */
-  console.log("Rating:", rating, props.routine.id);
+  /*   console.log("Rating:", rating, props.routine.id); */
 
   let id = props.routine.id;
   let name = props.routine.name;
@@ -24,7 +24,7 @@ export default (props) => {
   /*  let completed = props.routine.completed; */
 
   const touchImagen = () => {
-    console.log("imagen");
+    /*  console.log("imagen"); */
   };
   /* console.log("props", id); */
   return (

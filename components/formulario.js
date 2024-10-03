@@ -116,13 +116,7 @@ export function Todos() {
     });
     console.log("last", lastRoutine);
     setPrevRoutines(lastRoutine);
-    setName("");
-    setSerie("");
-    setReps("");
-    setRest("");
-    setWeight("");
-    setDay("");
-    setCompleted("");
+    clearInput();
     setVisibility(!visibility);
   };
   //TODO: Solo muestra muestra para editar datos del nombre y tiempo (Sera por que son string ?)
@@ -146,29 +140,55 @@ export function Todos() {
       setRest(result.rest);
       setWeight(result.weight);
       setDay(result.day);
-
-      console.log("name", name);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const clearInput = () => {
+    setName("");
+    setSerie("");
+    setReps("");
+    setRest("");
+    setWeight("");
+    setDay("");
+    setCompleted("");
+  };
+
   const updateRoutine = async () => {
-    let text = routine;
+    let txtName = name;
+    let txtSerie = serie;
+    let txtReps = reps;
+    let txtRest = rest;
+    let txtWeight = weight;
+    let txtDay = day;
+    let txtCompleted = completed;
+
+    /* console.log("update routine", text); */
+    //TODO:Revisar esta Sintaxis de Update SQLite, para que actualice todos los campos de la tabla routine
     const result = await db.runAsync(
-      "UPDATE routine set name = ? WHERE id = ?",
-      [text, routineID]
+      "UPDATE routine set name, serie,reps,rest,weight,day,completed name = ?,serie = ?,reps = ?,rest = ?,weight = ?,day = ?,completed = ? WHERE id = ?",
+      [
+        txtName,
+        txtSerie,
+        txtReps,
+        txtRest,
+        txtWeight,
+        txtDay,
+        txtCompleted,
+        routineID,
+      ]
     );
     setPrevRoutines((lastRoutine) => {
       return lastRoutine.map((routine) => {
         if (routine.id === routineID) {
-          return { ...routine, routine: text };
+          return { ...routine, routine: txtName };
         }
         return routine;
       });
     });
-    setName("");
-    setVisible(!visible);
+    clearInput();
+    setVisibility(!visibility);
   };
 
   const deleteRoutine = async (id) => {
@@ -276,7 +296,7 @@ export function Todos() {
             placeholder="Dia de la semana"
           />
           {/*//TODO:Cambiar Botones por pressables para mejor configuracion.  */}
-          <View style={{ paddingTop: 20 }}>
+          <View style={{ paddingTop: 5 }}>
             {visible ? (
               <Pressable
                 onPress={updateRoutine}
@@ -284,7 +304,7 @@ export function Todos() {
                   justifyContent: "space-evenly",
                   alignItems: "center",
                   backgroundColor: "green",
-                  margin: 20,
+                  marginHorizontal: 20,
                   borderRadius: 15,
                 }}
               >
@@ -300,7 +320,7 @@ export function Todos() {
                   justifyContent: "space-evenly",
                   alignItems: "center",
                   backgroundColor: "brown",
-                  margin: 20,
+                  marginHorizontal: 20,
                   borderRadius: 15,
                 }}
               >
