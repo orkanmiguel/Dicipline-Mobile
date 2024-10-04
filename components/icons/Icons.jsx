@@ -22,7 +22,7 @@ export const HomeIcon = (props) => (
 );
 
 export const AddIcon = (props) => (
-  <Ionicons name="add-circle-outline" size={40} color="yellow" {...props} />
+  <Ionicons name="add-circle-outline" size={50} color="yellow" {...props} />
 );
 
 export const SaveIcon = (props) => (

@@ -21,8 +21,22 @@ import {
   CloseIcon,
   DeleteIcon,
   EditIcon,
+  HomeIcon,
   SaveIcon,
 } from "./icons/Icons";
+
+import { styled } from "nativewind";
+
+const StyledPressable = styled(Pressable);
+
+/* <StyledPressable className={"active:opacity-20"}>
+        <View style={styles.containerDay}>
+          <Text style={styles.day}>
+            Lun{"\n"}
+            {fecha1.getDate()}
+          </Text>
+        </View>
+      </StyledPressable> */
 
 const initializeDb = async (db) => {
   try {
@@ -66,15 +80,18 @@ export function Todos() {
   const db = useSQLiteContext();
 
   const [name, setName] = useState("");
-  const [serie, setSerie] = useState();
-  const [reps, setReps] = useState();
+  const [serie, setSerie] = useState("");
+  const [reps, setReps] = useState("");
   const [rest, setRest] = useState("");
-  const [weight, setWeight] = useState();
-  const [day, setDay] = useState();
+  const [weight, setWeight] = useState("");
+  const [day, setDay] = useState("");
   const [completed, setCompleted] = useState();
   const [prevRoutine, setPrevRoutines] = useState([]);
   const [routineID, setRoutineID] = useState("");
   const [visible, setVisible] = useState(false);
+
+  //TODO: esta variable sera la encargada de cargar los dias segun su numero.
+  const [prevDay, setPrevDay] = useState([]);
 
   const [visibility, setVisibility] = useState(false);
 
@@ -167,7 +184,7 @@ export function Todos() {
     /* console.log("update routine", text); */
     //TODO:Revisar esta Sintaxis de Update SQLite, para que actualice todos los campos de la tabla routine
     const result = await db.runAsync(
-      "UPDATE routine set name, serie,reps,rest,weight,day,completed name = ?,serie = ?,reps = ?,rest = ?,weight = ?,day = ?,completed = ? WHERE id = ?",
+      "UPDATE routine set  name = ?,serie = ?,reps = ?,rest = ?,weight = ?,day = ?,completed = ? WHERE id = ?",
       [
         txtName,
         txtSerie,
@@ -182,11 +199,29 @@ export function Todos() {
     setPrevRoutines((lastRoutine) => {
       return lastRoutine.map((routine) => {
         if (routine.id === routineID) {
-          return { ...routine, routine: txtName };
+          return {
+            ...routine,
+            name: txtName,
+            serie: txtSerie,
+            reps: txtReps,
+            rest: txtRest,
+            weight: txtWeight,
+            day: txtDay,
+            completed: txtCompleted,
+          };
         }
+        console.log("routine value", routine);
         return routine;
       });
     });
+    Alert.alert("Editado con exito");
+    setName(txtName);
+    setSerie(txtSerie);
+    setReps(txtReps);
+    setRest(txtRest);
+    setWeight(txtWeight);
+    setDay(txtDay);
+
     clearInput();
     setVisibility(!visibility);
   };
@@ -244,10 +279,12 @@ export function Todos() {
               </Text>
             )}
 
-            <Pressable
+            <StyledPressable
+              className={"active:opacity-50"}
               onPress={() => {
                 setVisibility(!visibility);
                 setVisible(false);
+                clearInput();
               }}
               style={{
                 alignItems: "flex-end",
@@ -257,13 +294,13 @@ export function Todos() {
               }}
             >
               <CloseIcon />
-            </Pressable>
+            </StyledPressable>
           </View>
           <TextInput
             style={styles.input}
             value={name}
             onChangeText={setName}
-            placeholder="Nombre "
+            placeholder="Nombre"
           />
           <TextInput
             style={styles.input}
@@ -295,10 +332,11 @@ export function Todos() {
             onChangeText={setDay}
             placeholder="Dia de la semana"
           />
-          {/*//TODO:Cambiar Botones por pressables para mejor configuracion.  */}
+
           <View style={{ paddingTop: 5 }}>
             {visible ? (
-              <Pressable
+              <StyledPressable
+                className={"active:opacity-50"}
                 onPress={updateRoutine}
                 style={{
                   justifyContent: "space-evenly",
@@ -312,9 +350,10 @@ export function Todos() {
                   ACTUALIZAR
                 </Text>
                 <SaveIcon />
-              </Pressable>
+              </StyledPressable>
             ) : (
-              <Pressable
+              <StyledPressable
+                className={"active:opacity-50"}
                 onPress={addRoutine}
                 style={{
                   justifyContent: "space-evenly",
@@ -328,7 +367,7 @@ export function Todos() {
                   GUARDAR
                 </Text>
                 <SaveIcon />
-              </Pressable>
+              </StyledPressable>
             )}
 
             {/*  <Button title="Guardar" onPress={addRoutine} color="brown" /> */}
@@ -336,7 +375,20 @@ export function Todos() {
           </View>
         </Modal>
         <View style={{ alignItems: "flex-end", paddingEnd: 20 }}>
-          <AddIcon onPress={() => pressModal()} />
+          <StyledPressable className={"active:opacity-50"}>
+            <View style={styles.containerDay}>
+              <Text style={styles.day}>
+                Lun{"\n"}
+                30
+              </Text>
+            </View>
+          </StyledPressable>
+          <StyledPressable
+            className={"active:opacity-50"}
+            onPress={() => pressModal()}
+          >
+            <AddIcon />
+          </StyledPressable>
         </View>
 
         {/*   <Button
@@ -408,6 +460,23 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     width: "80%",
+  },
+  containerDay: {
+    /*  backgroundColor: "brown", */
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: "brown",
+    fontSize: 20,
+    width: 60,
+    height: 60,
+  },
+  day: {
+    color: "yellow",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

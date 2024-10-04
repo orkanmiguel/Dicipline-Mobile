@@ -3,18 +3,20 @@ import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Link } from "expo-router";
 import StarRating from "react-native-star-rating-widget";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default (props) => {
   // TODO: Configurar para que al guardar ejercicio se genere con las estrellas correctas
   const [rating, setRating] = useState(0);
+
   /* console.log("children eje:", props.children); */
   /*   console.log("Rating:", rating, props.routine.id); */
 
   let id = props.routine.id;
   let name = props.routine.name;
   let serie = props.routine.serie;
+  console.log("serie", serie);
   let reps = props.routine.reps;
   let rest = props.routine.rest;
   let weight = props.routine.weight;
@@ -52,10 +54,13 @@ export default (props) => {
         >
           {/* TODO: Por ahora maximo 7 series por ejercicio. */}
           <StarRating
-            maxStars={props.routine.serie}
+            maxStars={serie}
+            color={"yellow"}
+            emptyColor={"white"}
             rating={rating}
             onChange={setRating}
             enableHalfStar={false}
+            accessibilityAdjustmentLabel={`%${serie}% stars`}
           />
         </View>
 

@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import React from "react";
 import {
   StyleSheet,
@@ -6,9 +7,16 @@ import {
   ScrollView,
   StatusBar,
   View,
+  Pressable,
 } from "react-native";
 
+import { styled } from "nativewind";
+
+const StyledPressable = styled(Pressable);
+
 export default () => {
+  const day = "lunes";
+
   let d = new Date();
   let fecha1 = d;
   if (fecha1.getUTCDay() == 1) {
@@ -29,12 +37,23 @@ export default () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerDay}>
-        <Text style={styles.day}>
-          Lun{"\n"}
-          {fecha1.getDate()}
-        </Text>
-      </View>
+      <StyledPressable className={"active:opacity-50"}>
+        <View style={styles.containerDay}>
+          <Text style={styles.day}>
+            Lun{"\n"}
+            {fecha1.getDate()}
+          </Text>
+        </View>
+      </StyledPressable>
+
+      <StyledPressable className={"active:opacity-50"}>
+        <View style={styles.containerDay}>
+          <Text style={styles.day}>
+            Mar{"\n"}
+            {mar}
+          </Text>
+        </View>
+      </StyledPressable>
       <View style={styles.containerDay}>
         <Text style={styles.day}>
           Mar{"\n"}
