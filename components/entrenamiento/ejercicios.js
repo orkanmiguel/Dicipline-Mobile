@@ -5,6 +5,10 @@ import { Link } from "expo-router";
 import StarRating from "react-native-star-rating-widget";
 import { useEffect, useState } from "react";
 
+import { styled } from "nativewind";
+
+const StyledPressable = styled(Pressable);
+
 //componente que muestra el ejecicio, seires y reps, tiempo descanso
 export default (props) => {
   // TODO: Configurar para que al guardar ejercicio se genere con las estrellas correctas
@@ -35,14 +39,14 @@ export default (props) => {
       style={styles.container}
     >
       <Link href={`/${name}`} asChild>
-        <Pressable>
+        <StyledPressable className={"active:opacity-50"}>
           <View style={styles.containerImg}>
             <Image
               style={styles.imagen}
               source={require("../../assets/pullups.png")}
             />
           </View>
-        </Pressable>
+        </StyledPressable>
       </Link>
       <View style={styles.ejercicio}>
         <View

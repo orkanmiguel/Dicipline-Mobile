@@ -56,12 +56,6 @@ export default () => {
       </StyledPressable>
       <View style={styles.containerDay}>
         <Text style={styles.day}>
-          Mar{"\n"}
-          {mar}
-        </Text>
-      </View>
-      <View style={styles.containerDay}>
-        <Text style={styles.day}>
           Mie{"\n"}
           {mier}
         </Text>

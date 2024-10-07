@@ -415,8 +415,18 @@ export function Todos() {
                   <View style={{ margin: 10 }}>
                     <Ejercicio routine={item}>
                       {/* //TODO: Editar Rutina y configurar botones de update y no insert */}
-                      <EditIcon onPress={() => editRoutine(item.id)} />
-                      <DeleteIcon onPress={() => deleteRoutine(item.id)} />
+                      <StyledPressable
+                        className={"active:opacity-50"}
+                        onPress={() => editRoutine(item.id)}
+                      >
+                        <EditIcon />
+                      </StyledPressable>
+                      <StyledPressable
+                        className={"active:opacity-50"}
+                        onPress={() => deleteRoutine(item.id)}
+                      >
+                        <DeleteIcon />
+                      </StyledPressable>
                     </Ejercicio>
                   </View>
                 </View>
@@ -461,6 +471,7 @@ const styles = StyleSheet.create({
     margin: 5,
     width: "80%",
   },
+
   containerDay: {
     /*  backgroundColor: "brown", */
     justifyContent: "center",
@@ -473,6 +484,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+
   day: {
     color: "yellow",
     fontSize: 18,
