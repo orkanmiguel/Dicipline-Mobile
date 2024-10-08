@@ -24,6 +24,7 @@ import {
   HomeIcon,
   SaveIcon,
 } from "./icons/Icons";
+import { Day } from "./week/day";
 
 import { styled } from "nativewind";
 

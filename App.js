@@ -27,10 +27,13 @@ export default function App() {
     >
       <Titulo />
 
-      <Week />
+      {/*   <Week /> */}
 
       {/* <Ejemplo /> */}
-      <Form />
+      <View className="mt-8">
+        <Form />
+      </View>
+
       {/*   <View style={styles.form}>
         <Text>hi</Text>
       </View> */}
