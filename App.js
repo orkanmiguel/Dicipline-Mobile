@@ -30,7 +30,7 @@ export default function App() {
       {/*   <Week /> */}
 
       {/* <Ejemplo /> */}
-      <View className="mt-8">
+      <View className="mt-10">
         <Form />
       </View>
 

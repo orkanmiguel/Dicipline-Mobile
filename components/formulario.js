@@ -24,7 +24,8 @@ import {
   HomeIcon,
   SaveIcon,
 } from "./icons/Icons";
-import { Day } from "./week/day";
+import Days from "./week/day";
+import createWeek from "./week/createWeek";
 
 import { styled } from "nativewind";
 
@@ -91,6 +92,8 @@ export function Todos() {
   const [routineID, setRoutineID] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const weekData = createWeek.createWeek;
+  console.log("createWeek", weekData);
   //TODO: esta variable sera la encargada de cargar los dias segun su numero.
   const [prevDay, setPrevDay] = useState([]);
 
@@ -238,6 +241,11 @@ export function Todos() {
     }
   };
 
+  const SelectDay = (day) => {
+    //TODO:Aca se debe llamar la informacion segun el dia de la semana, para mostrar la rutina.
+    console.log("Select Day", day);
+  };
+
   return (
     <>
       {/*//TODO: Configuracion Modal rutina */}
@@ -375,15 +383,25 @@ export function Todos() {
             {/*  <Button title="Cerrar" onPress={() => setVisibility(!visibility)} /> */}
           </View>
         </Modal>
-        <View style={{ alignItems: "flex-end", paddingEnd: 20 }}>
-          <StyledPressable className={"active:opacity-50"}>
-            <View style={styles.containerDay}>
-              <Text style={styles.day}>
-                Lun{"\n"}
-                30
-              </Text>
-            </View>
-          </StyledPressable>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* TODO:Mod WEEK */}
+          {weekData.map((item, index) => {
+            return (
+              <StyledPressable
+                className={"active:opacity-50 "}
+                onPress={() => SelectDay(item.day)}
+              >
+                <Days day={item} />
+              </StyledPressable>
+            );
+          })}
+
           <StyledPressable
             className={"active:opacity-50"}
             onPress={() => pressModal()}

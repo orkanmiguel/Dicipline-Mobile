@@ -14,21 +14,18 @@ import { styled } from "nativewind";
 
 const StyledPressable = styled(Pressable);
 
-export default () => {
-  const day = "lunes";
-  const date = "7";
+export default (props) => {
+  const day = props.day.day;
+  const date = props.day.date;
+  /* const day = "lunes";
+  const date = "7"; */
 
   return (
     <View style={styles.container}>
-      <StyledPressable className={"active:opacity-50"}>
-        <View style={styles.containerDay}>
-          <Text style={styles.day}>
-            {date}
-            {"\n"}
-            {date}
-          </Text>
-        </View>
-      </StyledPressable>
+      <View style={styles.containerDay}>
+        <Text style={styles.day}>{day}</Text>
+        <Text style={styles.day}>{date}</Text>
+      </View>
     </View>
   );
 };
@@ -41,7 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     /*     backgroundColor: "brown", */
-    marginHorizontal: 20,
   },
   containerDay: {
     /*  backgroundColor: "brown", */
