@@ -38,6 +38,7 @@ export default (props) => {
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
+      {/* TODO: Ver o revisar por que no manda a la pagina */}
       <Link href={`/${name}`} asChild>
         <StyledPressable className={"active:opacity-50"}>
           <View style={styles.containerImg}>
@@ -86,7 +87,7 @@ export default (props) => {
 
           <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
             {" "}
-            Descanso: {rest}
+            rest: {rest}
           </Text>
         </View>
       </View>
