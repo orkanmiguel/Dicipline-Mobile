@@ -1,11 +1,11 @@
 const createWeek = [
-  { day: "Lun", date: "7" },
-  { day: "Mar", date: "8" },
-  { day: "Mie", date: "9" },
-  { day: "Jue", date: "10" },
-  { day: "Vie", date: "11" },
-  { day: "Sab", date: "12" },
-  { day: "Dom", date: "13" },
+  { day: "Lun", date: "14" },
+  { day: "Mar", date: "15" },
+  { day: "Mie", date: "16" },
+  { day: "Jue", date: "17" },
+  { day: "Vie", date: "18" },
+  { day: "Sab", date: "20" },
+  { day: "Dom", date: "21" },
 ];
 
 export default {

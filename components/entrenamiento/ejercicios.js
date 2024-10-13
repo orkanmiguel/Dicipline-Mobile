@@ -87,7 +87,7 @@ export default (props) => {
 
           <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
             {" "}
-            rest: {rest}
+            Descanso: {rest}
           </Text>
         </View>
       </View>
