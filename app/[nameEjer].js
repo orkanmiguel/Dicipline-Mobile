@@ -5,6 +5,7 @@ import Screen from "../components/screens/Screen";
 
 export default function Details() {
   const { nameEjer } = useLocalSearchParams();
+  console.log("data", nameEjer);
   return (
     <Screen>
       <ScrollView>

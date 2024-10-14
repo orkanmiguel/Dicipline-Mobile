@@ -20,7 +20,7 @@ export default (props) => {
   let id = props.routine.id;
   let name = props.routine.name;
   let serie = props.routine.serie;
-  console.log("serie", serie);
+  console.log("name", name);
   let reps = props.routine.reps;
   let rest = props.routine.rest;
   let weight = props.routine.weight;
@@ -39,7 +39,7 @@ export default (props) => {
       style={styles.container}
     >
       {/* TODO: Ver o revisar por que no manda a la pagina */}
-      <Link href={`/${name}`} asChild>
+      <Link href={`../../app/${name}`} asChild>
         <StyledPressable className={"active:opacity-50"}>
           <View style={styles.containerImg}>
             <Image
