@@ -10,7 +10,7 @@ export default ({ children, visibility }) => {
     <Modal animationType="slide" transparent={true} visible={visibility}>
       <View
         style={{
-          alignItems: "stretch",
+          alignItems: "center",
           justifyContent: "center",
           flex: 1,
           backgroundColor: "rgba(0,0,0,0.5)",

@@ -5,3 +5,4 @@ export { default as Week } from "./week";
 export { default as Ejemplo } from "./ejemplo";
 export { default as Modal } from "./modal";
 export { default as InsertADD } from "./add";
+export { default as DropDown } from "./dropdown";

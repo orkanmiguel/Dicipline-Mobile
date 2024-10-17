@@ -7,7 +7,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Titulo, Form, Week, Ejemplo, Modal, InsertADD } from "./components";
+import {
+  Titulo,
+  Form,
+  Week,
+  Ejemplo,
+  Modal,
+  InsertADD,
+  DropDown,
+} from "./components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -26,13 +34,14 @@ export default function App() {
       style={styles.container}
     >
       <Titulo />
-
+      <DropDown style={{ marginBottom: 100 }} />
       {/*   <Week /> */}
 
       {/* <Ejemplo /> */}
-      <View className="mt-10">
+      {/* TODO:SOLO form comentado */}
+      {/*       <View className="mt-10">
         <Form />
-      </View>
+      </View> */}
 
       {/*   <View style={styles.form}>
         <Text>hi</Text>
@@ -51,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 10,
     backgroundColor: "red",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "stretch",
   },
   containerNav: {

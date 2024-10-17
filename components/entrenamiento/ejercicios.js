@@ -39,7 +39,7 @@ export default (props) => {
       style={styles.container}
     >
       {/* TODO: Ver o revisar por que no manda a la pagina */}
-      <Link href={`../../app/${name}`} asChild>
+      <Link href={`${props.routine.name}`} asChild>
         <StyledPressable className={"active:opacity-50"}>
           <View style={styles.containerImg}>
             <Image
