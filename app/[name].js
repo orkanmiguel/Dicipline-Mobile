@@ -4,8 +4,8 @@ import { useLocalSearchParams } from "expo-router";
 import Screen from "../components/screens/Screen";
 
 export default function Details() {
-  const { nameEjer } = useLocalSearchParams();
-  console.log("data", nameEjer);
+  const { name } = useLocalSearchParams();
+  console.log("data", name);
   return (
     <Screen>
       <ScrollView>
@@ -17,7 +17,7 @@ export default function Details() {
             },
             headerTintColor: "black",
             headerLeft: () => {},
-            headerTitle: nameEjer,
+            headerTitle: name,
             headerRight: () => {},
           }}
         />
@@ -48,7 +48,7 @@ export default function Details() {
               }}
             >
               <Text style={styles.paragraph}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
+                lLorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
                 atque voluptate fuga ratione cumque. Soluta possimus explicabo
                 exercitationem dignissimos ipsum cupiditate modi quam quia
                 recusandae optio distinctio vel, nobis earum.m

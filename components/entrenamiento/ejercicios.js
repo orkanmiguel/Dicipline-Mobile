@@ -20,11 +20,11 @@ export default (props) => {
   let id = props.routine.id;
   let name = props.routine.name;
   let serie = props.routine.serie;
-  console.log("name", name);
+  console.log("name", name.trim());
   let reps = props.routine.reps;
   let rest = props.routine.rest;
   let weight = props.routine.weight;
-
+  let nam = name.trim();
   //TODO: Deprecated, este dato solo se guarda al completar todas las series
   //TODO: y rutina, esto es es un update.
   /*  let completed = props.routine.completed; */
