@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import App from "../../App";
+import { rMS, rS, rV } from "../../components/constants/responsive";
 
 export default function Index() {
   console.log("Titulo test", App);
@@ -13,7 +14,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
   },
 });

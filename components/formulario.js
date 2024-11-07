@@ -28,6 +28,7 @@ import Days from "./week/day";
 import createWeek from "./week/createWeek";
 
 import { styled } from "nativewind";
+import { rMS, rS, rV } from "./constants/responsive";
 
 const StyledPressable = styled(Pressable);
 
@@ -45,7 +46,7 @@ const initializeDb = async (db) => {
     await db.execAsync(`
       PRAGMA synchronous=OFF;
       PRAGMA count_changes=OFF;
-      PRAGMA journal_mode=OFF;
+      PRAGMA journal_mode=WAL;
       PRAGMA temp_store=MEMORY;
       CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
        name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC,day TEXT, completed INTEGER
@@ -387,27 +388,36 @@ export function Todos() {
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            alignItems: "center",
+            //alignItems: "center",
           }}
         >
           {/* TODO:Mod WEEK */}
-          {weekData.map((item, index) => {
-            return (
-              <StyledPressable
-                className={"active:opacity-50 "}
-                onPress={() => SelectDay(item.day)}
-              >
-                <Days day={item} />
-              </StyledPressable>
-            );
-          })}
+          <View
+            style={{
+              flexDirection: "row",
 
-          <StyledPressable
-            className={"active:opacity-50"}
-            onPress={() => pressModal()}
+              marginHorizontal: rMS(1),
+              marginLeft: rMS(70),
+              marginRight: rMS(70),
+            }}
           >
-            <AddIcon />
-          </StyledPressable>
+            {weekData.map((item, index) => {
+              return (
+                <StyledPressable
+                  className={"active:opacity-50 "}
+                  onPress={() => SelectDay(item.day)}
+                >
+                  <Days day={item} />
+                </StyledPressable>
+              );
+            })}
+            <StyledPressable
+              className={"active:opacity-50"}
+              onPress={() => pressModal()}
+            >
+              <AddIcon />
+            </StyledPressable>
+          </View>
         </View>
 
         {/*   <Button
@@ -416,6 +426,7 @@ export function Todos() {
           onPress={() => pressModal()}
         /> */}
       </View>
+
       {/*  */}
       <ScrollView style={styles.container}>
         <View style={styles.view}>
@@ -463,6 +474,7 @@ const styles = StyleSheet.create({
   container: {
     /*   backgroundColor: "black", */
     flex: 1,
+    marginTop: 10,
   },
   //TODO: Revisar para que el formulariom quede centrado, en un modal.
   /*   view: {

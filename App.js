@@ -7,19 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  Titulo,
-  Form,
-  Week,
-  Ejemplo,
-  Modal,
-  InsertADD,
-  DropDown,
-} from "./components";
+import { Titulo, Form, Week, Ejemplo, Modal, InsertADD } from "./components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useState } from "react";
+import { rS, rV } from "./components/constants/responsive";
 
 export default function App() {
   const [visibility, setVisibility] = useState(false);
@@ -34,14 +27,14 @@ export default function App() {
       style={styles.container}
     >
       <Titulo />
-      <DropDown style={{ marginBottom: 100 }} />
+
       {/*   <Week /> */}
 
       {/* <Ejemplo /> */}
       {/* TODO:SOLO form comentado */}
-      {/*       <View className="mt-10">
+      <View style={{ paddingHorizontal: rV(20) }}>
         <Form />
-      </View> */}
+      </View>
 
       {/*   <View style={styles.form}>
         <Text>hi</Text>

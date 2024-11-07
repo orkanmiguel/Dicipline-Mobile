@@ -33,6 +33,7 @@ export default (props) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
+    marginBottom: 25,
     flex: 0.1,
     flexDirection: "row",
     justifyContent: "space-around",
