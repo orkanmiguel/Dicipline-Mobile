@@ -404,6 +404,7 @@ export function Todos() {
             {weekData.map((item, index) => {
               return (
                 <StyledPressable
+                  key={index}
                   className={"active:opacity-50 "}
                   onPress={() => SelectDay(item.day)}
                 >
