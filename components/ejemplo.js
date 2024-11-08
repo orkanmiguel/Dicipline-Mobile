@@ -15,10 +15,7 @@ import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
 const initializeDb = async (db) => {
   try {
     await db.execAsync(`
-      PRAGMA synchronous=OFF;
-      PRAGMA count_changes=OFF;
-      PRAGMA journal_mode=OFF;
-      PRAGMA temp_store=MEMORY;
+  
       CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, note TEXT);
       `);
     console.log("DB connected");
@@ -29,7 +26,7 @@ const initializeDb = async (db) => {
 
 export default function Notes() {
   return (
-    <SQLiteProvider databaseName="./prueb.db" onInit={initializeDb}>
+    <SQLiteProvider databaseName="./DiciplinePrueba.db" onInit={initializeDb}>
       <Todos />
     </SQLiteProvider>
   );

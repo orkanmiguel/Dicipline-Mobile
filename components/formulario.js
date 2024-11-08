@@ -43,11 +43,11 @@ const StyledPressable = styled(Pressable);
 
 const initializeDb = async (db) => {
   try {
+    /*     PRAGMA synchronous=OFF;
+    PRAGMA count_changes=OFF;
+    PRAGMA journal_mode=WAL;
+    PRAGMA temp_store=MEMORY; */
     await db.execAsync(`
-      PRAGMA synchronous=OFF;
-      PRAGMA count_changes=OFF;
-      PRAGMA journal_mode=WAL;
-      PRAGMA temp_store=MEMORY;
       CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
        name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC,day TEXT, completed INTEGER
       );
@@ -60,7 +60,7 @@ const initializeDb = async (db) => {
 
 export default function Routines() {
   return (
-    <SQLiteProvider databaseName="./dicipline.db" onInit={initializeDb}>
+    <SQLiteProvider databaseName="./DiciplinePrueba.db" onInit={initializeDb}>
       <Todos />
     </SQLiteProvider>
   );
