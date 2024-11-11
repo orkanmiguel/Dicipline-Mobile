@@ -62,7 +62,7 @@ const initializeDb = async (db) => {
 export default function Routines() {
   return (
     <SQLiteProvider
-      databaseName="DiciplinePrueba"
+      databaseName="DiciplinePrueba.db"
       //assetSource={{ assetId: require("./assets/db/DiciplinePrueba.db") }}
       onInit={initializeDb}
     >
