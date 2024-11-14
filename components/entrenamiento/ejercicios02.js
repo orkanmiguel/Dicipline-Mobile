@@ -19,7 +19,7 @@ export default (props) => {
 
   let id = props.routine.id;
   let name = props.routine.name;
-  let serie = props.routine.serie;
+  let serie = props.routine.serie || 0;
   console.log("name", name.trim());
   let reps = props.routine.reps;
   let rest = props.routine.rest;
@@ -34,7 +34,7 @@ export default (props) => {
   };
   /* console.log("props", id); */
   return (
-    <LinearGradient
+    <View
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
@@ -58,7 +58,7 @@ export default (props) => {
           }}
         >
           {/* TODO: Por ahora maximo 7 series por ejercicio. */}
-          {/*  <StarRating
+          {/* <StarRating
             maxStars={serie}
             color={"yellow"}
             emptyColor={"white"}
@@ -105,7 +105,7 @@ export default (props) => {
         {/* <EditIcon /> */}
         {/* <DeleteIcon /> */}
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 

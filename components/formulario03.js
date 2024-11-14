@@ -300,7 +300,7 @@ export default function Todos() {
 
   useEffect(() => {
     async function setup() {
-      inserta();
+      /*   inserta(); */
       const db = await SQLite.openDatabaseAsync("dbDicipline");
 
       await db.execAsync(` PRAGMA journal_mode = WAL;
@@ -486,7 +486,7 @@ export default function Todos() {
             <StyledPressable
               className={"active:opacity-50"}
               //TODO: pressModal() mod por inserta para guardar dato fast
-              onPress={() => inserta()}
+              onPress={() => pressModal()}
             >
               <AddIcon />
             </StyledPressable>
