@@ -108,8 +108,6 @@ export default function Todos() {
 
   const pressModal = async () => {
     setVisibility(true);
-    const result = await db.getAllAsync("SELECT * FROM routine");
-    setPrevRoutines(result);
   };
 
   async function getList() {
@@ -120,7 +118,7 @@ export default function Todos() {
     for (const row of allRows) {
       /* console.log(row.id, row.value, row.intValue); */
       newArray.push({
-        id: row.res.lastInsertRowId,
+        id: row.id,
         name: row.name,
         serie: row.serie,
         reps: row.reps,
@@ -130,6 +128,7 @@ export default function Todos() {
         completed: row.completed,
       });
     }
+    console.log("id reviced", newArray.id);
     setPrevRoutines(newArray);
   }
   /*   useEffect(() => {
@@ -145,11 +144,18 @@ export default function Todos() {
     //agregar validacion de data.
     const db = await SQLite.openDatabaseAsync("dbDicipline");
 
+    //TODO: ejemplo validacion para mantener los campos con datos.
     if (name == "" || serie == "") {
     } else {
       let res = await db.runAsync(
         "INSERT INTO routine (name, serie,reps,rest,weight,day,completed) values (?,?,?,?,?,?,?)",
-        [name, serie, reps, rest, weight, day, completed]
+        name,
+        serie,
+        reps,
+        rest,
+        weight,
+        day,
+        completed
       );
 
       Alert.alert("Ejercicio Agregado!");
@@ -164,18 +170,34 @@ export default function Todos() {
         day: day,
         completed: completed,
       });
-      console.log("last", lastRoutine);
-      setPrevRoutines(lastRoutine);
+      console.log("last", res.lastInsertRowId);
+      /*   setPrevRoutines(lastRoutine); */
       getList();
       clearInput();
       setVisibility(!visibility);
+      setVisible(false);
     }
   };
+  //TODO:Insercion basica para ver como se comporta con un delete
+  const inserta = async () => {
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
+
+    await db.runAsync(
+      "INSERT INTO routine (name, serie,reps,rest,weight,day,completed) values (?,?,?,?,?,?,?)",
+      ("pull ups", "3", "10", "3:00", "10 kg", "lunes", "0")
+    );
+
+    getList();
+  };
+  /*  inserta(); */
+
   //TODO: Solo muestra muestra para editar datos del nombre y tiempo (Sera por que son string ?)
   const editRoutine = async (id) => {
     setVisible(true);
     setRoutineID(id);
     setVisibility(true);
+
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
     try {
       // Fetch the note first
       const result = await db.getFirstAsync(
@@ -216,6 +238,7 @@ export default function Todos() {
     let txtDay = day;
     let txtCompleted = completed;
 
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
     /* console.log("update routine", text); */
     //TODO:Revisar esta Sintaxis de Update SQLite, para que actualice todos los campos de la tabla routine
     const result = await db.runAsync(
@@ -262,14 +285,17 @@ export default function Todos() {
   };
 
   const deleteRoutine = async (id) => {
-    try {
-      await db.runAsync("DELETE FROM routine WHERE id = ?", [id]);
-      Alert.alert("Eliminado con exito");
-      let lastRoutine = [...prevRoutine].filter((routine) => routine.id != id);
-      setPrevRoutines(lastRoutine);
-    } catch (error) {
-      console.log(error);
-    }
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
+    console.log("id", id);
+    await db.runAsync("DELETE FROM routine WHERE id = ?", [id]);
+    /*   await db.runAsync("DELETE FROM routine WHERE id = $id", {
+        $id: id,
+      }); */
+
+    Alert.alert("Eliminado con exito");
+    let lastRoutine = [...prevRoutine].filter((routine) => routine.id != id);
+    /*  setPrevRoutines(lastRoutine); */
+    getList();
   };
 
   useEffect(() => {
@@ -458,7 +484,8 @@ export default function Todos() {
             })}
             <StyledPressable
               className={"active:opacity-50"}
-              onPress={() => pressModal()}
+              //TODO: pressModal() mod por inserta para guardar dato fast
+              onPress={() => inserta()}
             >
               <AddIcon />
             </StyledPressable>
