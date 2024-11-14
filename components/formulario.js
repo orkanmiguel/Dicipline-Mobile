@@ -11,7 +11,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
+/* import { SQLiteProvider, useSQLiteContext } from "expo-sqlite"; */
 import { Ejercicio } from "./entrenamiento";
 import { StatusBar } from "expo-status-bar";
 import Modal from "./modal";
@@ -26,6 +26,7 @@ import {
 } from "./icons/Icons";
 import Days from "./week/day";
 import createWeek from "./week/createWeek";
+import * as SQLite from "expo-sqlite";
 
 import { styled } from "nativewind";
 import { rMS, rS, rV } from "./constants/responsive";
@@ -41,12 +42,12 @@ const StyledPressable = styled(Pressable);
         </View>
       </StyledPressable> */
 
-const initializeDb = async (db) => {
+/* const initializeDb = async (db) => {
   try {
-    /*     PRAGMA synchronous=OFF;
+        PRAGMA synchronous=OFF;
     PRAGMA count_changes=OFF;
     PRAGMA journal_mode=WAL;
-    PRAGMA temp_store=MEMORY; */
+    PRAGMA temp_store=MEMORY;
     await db.execAsync(`
       PRAGMA journal_mode = WAL;
       CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,9 +58,9 @@ const initializeDb = async (db) => {
   } catch (error) {
     console.log("DB initialization error:", error);
   }
-};
+}; */
 
-export default function Routines() {
+/* export default function Routines() {
   return (
     <SQLiteProvider
       databaseName="DiciplinePrueba"
@@ -69,7 +70,7 @@ export default function Routines() {
       <Todos />
     </SQLiteProvider>
   );
-}
+} */
 
 /* const data = [
   { id: 1 },
@@ -84,8 +85,8 @@ export default function Routines() {
   { id: 10 },
 ]; */
 
-export function Todos() {
-  const db = useSQLiteContext();
+export default function Todos() {
+  /*   const db = useSQLiteContext(); */
 
   const [name, setName] = useState("");
   const [serie, setSerie] = useState("");
@@ -105,46 +106,70 @@ export function Todos() {
 
   const [visibility, setVisibility] = useState(false);
 
-  const pressModal = () => {
+  const pressModal = async () => {
     setVisibility(true);
+    const result = await db.getAllAsync("SELECT * FROM routine");
+    setPrevRoutines(result);
   };
-  useEffect(() => {
+
+  async function getList() {
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
+
+    const allRows = await db.getAllAsync("SELECT * FROM routine");
+    let newArray = [];
+    for (const row of allRows) {
+      /* console.log(row.id, row.value, row.intValue); */
+      newArray.push({
+        id: row.res.lastInsertRowId,
+        name: row.name,
+        serie: row.serie,
+        reps: row.reps,
+        rest: row.rest,
+        weight: row.weight,
+        day: row.day,
+        completed: row.completed,
+      });
+    }
+    setPrevRoutines(newArray);
+  }
+  /*   useEffect(() => {
     async function fetchRoutine() {
       const result = await db.getAllAsync("SELECT * FROM routine");
       setPrevRoutines(result);
-      /* console.log("resultado bd:", result); */
+      console.log("resultado bd:", result);
     }
     fetchRoutine();
-  }, []);
+  }, []); */
 
   const addRoutine = async () => {
-    /*   let dateString = new Date().toISOString();
-    let date = dateString
-      .slice(0, dateString.indexOf("T"))
-      .split("-")
-      .reverse()
-      .join("-"); */
-    let res = await db.runAsync(
-      "INSERT INTO routine (name, serie,reps,rest,weight,day,completed) values (?,?,?,?,?,?,?)",
-      [name, serie, reps, rest, weight, day, completed]
-    );
+    //agregar validacion de data.
+    const db = await SQLite.openDatabaseAsync("dbDicipline");
 
-    Alert.alert("Ejercicio Agregado!");
-    let lastRoutine = [...prevRoutine];
-    lastRoutine.push({
-      id: res.lastInsertRowId,
-      name: name,
-      serie: serie,
-      reps: reps,
-      rest: rest,
-      weight: weight,
-      day: day,
-      completed: completed,
-    });
-    console.log("last", lastRoutine);
-    setPrevRoutines(lastRoutine);
-    clearInput();
-    setVisibility(!visibility);
+    if (name == "" || serie == "") {
+    } else {
+      let res = await db.runAsync(
+        "INSERT INTO routine (name, serie,reps,rest,weight,day,completed) values (?,?,?,?,?,?,?)",
+        [name, serie, reps, rest, weight, day, completed]
+      );
+
+      Alert.alert("Ejercicio Agregado!");
+      let lastRoutine = [...prevRoutine];
+      lastRoutine.push({
+        id: res.lastInsertRowId,
+        name: name,
+        serie: serie,
+        reps: reps,
+        rest: rest,
+        weight: weight,
+        day: day,
+        completed: completed,
+      });
+      console.log("last", lastRoutine);
+      setPrevRoutines(lastRoutine);
+      getList();
+      clearInput();
+      setVisibility(!visibility);
+    }
   };
   //TODO: Solo muestra muestra para editar datos del nombre y tiempo (Sera por que son string ?)
   const editRoutine = async (id) => {
@@ -246,6 +271,20 @@ export function Todos() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    async function setup() {
+      const db = await SQLite.openDatabaseAsync("dbDicipline");
+
+      await db.execAsync(` PRAGMA journal_mode = WAL;
+      CREATE TABLE IF NOT EXISTS routine (id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC,day TEXT, completed INTEGER
+      );`);
+
+      getList();
+    }
+    setup();
+  }, []);
 
   const SelectDay = (day) => {
     //TODO:Aca se debe llamar la informacion segun el dia de la semana, para mostrar la rutina.
