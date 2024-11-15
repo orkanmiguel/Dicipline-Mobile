@@ -76,19 +76,29 @@ export default (props) => {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 30, fontWeight: "bold", color: "black" }}>
-              {name.slice(0, 10)} + {weight.slice(0, 6)}KG
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: "bold",
+                color: "yellow",
+                borderColor: "black",
+              }}
+            >
+              {name.slice(0, 10)}
             </Text>
           </View>
 
           <View style={styles.reps}>
             <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
-              {serie} X {reps}
+              {String(serie).slice(0, 3)} X {String(reps).slice(0, 3)} +{" "}
+              {weight}
+              KG
             </Text>
-
+          </View>
+          <View>
             <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
               {" "}
-              Descanso: {rest}
+              Descanso: {String(rest).slice(0, 5)}
             </Text>
           </View>
         </View>

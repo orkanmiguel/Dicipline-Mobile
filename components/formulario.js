@@ -153,10 +153,10 @@ export default function Todos() {
 
       // Then set the note
       setName(result.name);
-      setSerie(result.serie);
-      setReps(result.reps);
-      setRest(result.rest);
-      setWeight(result.weight);
+      setSerie(String(result.serie));
+      setReps(String(result.reps));
+      setRest(String(result.rest));
+      setWeight(String(result.weight));
       setDay(result.day);
     } catch (error) {
       console.log(error);
@@ -199,60 +199,6 @@ export default function Todos() {
     }
   }
 
-  const updateRoutinee = async () => {
-    let txtName = name;
-    let txtSerie = serie;
-    let txtReps = reps;
-    let txtRest = rest;
-    let txtWeight = weight;
-    let txtDay = day;
-    let txtCompleted = completed;
-
-    const db = await SQLite.openDatabaseAsync("dbDiciplineTest");
-    /* console.log("update routine", text); */
-    //TODO:Revisar esta Sintaxis de Update SQLite, para que actualice todos los campos de la tabla routine
-    const result = await db.runAsync(
-      "UPDATE routine set  name = ?,serie = ?,reps = ?,rest = ?,weight = ?,day = ?,completed = ? WHERE id = ?",
-      [
-        txtName,
-        txtSerie,
-        txtReps,
-        txtRest,
-        txtWeight,
-        txtDay,
-        txtCompleted,
-        routineID,
-      ]
-    );
-    setPrevRoutines((lastRoutine) => {
-      return lastRoutine.map((routine) => {
-        if (routine.id === routineID) {
-          return {
-            ...routine,
-            name: txtName,
-            serie: txtSerie,
-            reps: txtReps,
-            rest: txtRest,
-            weight: txtWeight,
-            day: txtDay,
-            completed: txtCompleted,
-          };
-        }
-        console.log("routine value", routine);
-        return routine;
-      });
-    });
-    Alert.alert("Editado con exito");
-    setName(txtName);
-    setSerie(txtSerie);
-    setReps(txtReps);
-    setRest(txtRest);
-    setWeight(txtWeight);
-    setDay(txtDay);
-
-    clearInput();
-    setVisibility(!visibility);
-  };
   //TODO: termino update rutina //////////////////////////////////////////////
 
   const deleteRoutine = async (id) => {
@@ -271,34 +217,41 @@ export default function Todos() {
     if (getDay === "Lun") {
       /* day = "Lunes"; */
       /*       setDay = "Lunes"; */
+      /* weekData[0].selec = true; */
       getDay = "Lunes";
     }
     if (getDay === "Mar") {
       /* day = "Martes"; */
       /*   setDay = "Martes"; */
+      /*   weekData[1].selec = true; */
       getDay = "Martes";
     }
     if (getDay === "Mie") {
       /*  day = "Miercoles"; */
       /*     setDay = "Miercoles"; */
+      /*   weekData[2].selec = true; */
       getDay = "Miercoles";
     }
     if (getDay === "Jue") {
       /*   day = "Jueves"; */
       /*     setDay = "Jueves"; */
+      /*       weekData[3].selec = true; */
       getDay = "Jueves";
     }
     if (getDay === "Vie") {
       /* day = "Viernes"; */
       /*     setDay = "Viernes"; */
+      /*    weekData[4].selec = true; */
       getDay = "Viernes";
     }
     if (getDay === "Sab") {
       /*      setDay = "Sabado"; */
+      /*     weekData[5].selec = true; */
       getDay = "Sabado";
     }
     if (getDay === "Dom") {
       /* setDay = "Domingo"; */
+      /*   weekData[6].selec = true; */
       getDay = "Domingo";
     }
 
@@ -325,7 +278,25 @@ export default function Todos() {
     console.log("id reviced", newArray.id);
     setPrevRoutines(newArray);
     setDate(getDay);
+    daySelected(getDay);
+    arrByID;
     /*  console.log("date", date); */
+  };
+
+  //Metodo para poder tener la seleccion de los dias.
+  const daySelected = (d) => {
+    console.log("weeeek", weekData);
+    weekData.forEach((item, index) => {
+      if (item.day == d.slice(0, 3)) {
+        weekData[index].selec = true;
+        console.log("true true true", weekData[index].selec);
+      } else {
+        weekData[index].selec = false;
+        console.log("false false false", weekData[index].selec);
+      }
+
+      console.log(`datatata: ${index}: ${item.day}`);
+    });
   };
 
   useEffect(() => {
@@ -349,12 +320,31 @@ export default function Todos() {
 
       <View>
         <Modal visibility={visibility}>
+          <StyledPressable
+            className={"active:opacity-50"}
+            onPress={() => {
+              setVisibility(!visibility);
+              setVisible(false);
+              clearInput();
+            }}
+            style={{
+              alignItems: "flex-end",
+              justifyContent: "flex-start",
+
+              paddingBottom: 10,
+
+              /* backgroundColor: "pink", */
+            }}
+          >
+            <CloseIcon />
+          </StyledPressable>
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "center",
               alignItems: "center",
-              /*       backgroundColor: "green", */
+              /*    backgroundColor: "green", */
+              paddingBottom: rMS(10),
             }}
           >
             {visible ? (
@@ -384,61 +374,39 @@ export default function Todos() {
                 Nuevo Ejercicio
               </Text>
             )}
-
-            <StyledPressable
-              className={"active:opacity-50"}
-              onPress={() => {
-                setVisibility(!visibility);
-                setVisible(false);
-                clearInput();
-              }}
-              style={{
-                alignItems: "flex-end",
-                paddingRight: 6,
-                paddingBottom: 10,
-                /*    backgroundColor: "pink", */
-              }}
-            >
-              <CloseIcon />
-            </StyledPressable>
           </View>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={setName}
-            placeholder="Nombre"
-          />
-          <TextInput
-            style={styles.input}
-            value={serie}
-            onChangeText={setSerie}
-            placeholder="N° de Series"
-          />
-          <TextInput
-            style={styles.input}
-            value={reps}
-            onChangeText={setReps}
-            placeholder="Cantidad de Repeticiones"
-          />
-          <TextInput
-            style={styles.input}
-            value={rest}
-            onChangeText={setRest}
-            placeholder="Descanso minutos 00:00"
-          />
-          <TextInput
-            style={styles.input}
-            value={weight}
-            onChangeText={setWeight}
-            placeholder="Peso KG "
-          />
-          <TextInput
-            style={styles.input}
-            value={day}
-            onChangeText={setDay}
-            placeholder="Dia de la semana"
-          />
-
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              placeholder="Nombre"
+            />
+            <TextInput
+              style={styles.input}
+              value={serie}
+              onChangeText={setSerie}
+              placeholder="N° de Series"
+            />
+            <TextInput
+              style={styles.input}
+              value={reps}
+              onChangeText={setReps}
+              placeholder="Cantidad de Repeticiones"
+            />
+            <TextInput
+              style={styles.input}
+              value={rest}
+              onChangeText={setRest}
+              placeholder="Descanso minutos 00:00"
+            />
+            <TextInput
+              style={styles.input}
+              value={weight}
+              onChangeText={setWeight}
+              placeholder="Peso KG "
+            />
+          </View>
           <View style={{ paddingTop: 5 }}>
             {visible ? (
               <StyledPressable

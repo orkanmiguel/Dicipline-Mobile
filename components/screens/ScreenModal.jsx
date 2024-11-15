@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { rMS } from "../constants/responsive";
 
 export default function ModalScreen({ children }) {
   return (
@@ -15,10 +16,12 @@ export default function ModalScreen({ children }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
-    alignItems: "stretch",
-    margin: 40,
+    backgroundColor: "brown",
+    /*  justifyContent: "center", */
+    /*     alignItems: "stretch", */
+    /* margin: 40, */
     borderRadius: 25,
-    height: 450,
+    height: rMS(400),
+    width: rMS(250),
   },
 });

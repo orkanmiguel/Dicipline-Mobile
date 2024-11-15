@@ -1,13 +1,13 @@
 //TODO: Crear obtencion de fecha empezando por el dia lunes
 
 const createWeek = [
-  { day: "Lun", date: "14" },
-  { day: "Mar", date: "15" },
-  { day: "Mie", date: "16" },
-  { day: "Jue", date: "17" },
-  { day: "Vie", date: "18" },
-  { day: "Sab", date: "20" },
-  { day: "Dom", date: "21" },
+  { day: "Lun", date: "14", selec: false },
+  { day: "Mar", date: "15", selec: false },
+  { day: "Mie", date: "16", selec: false },
+  { day: "Jue", date: "17", selec: false },
+  { day: "Vie", date: "18", selec: false },
+  { day: "Sab", date: "20", selec: false },
+  { day: "Dom", date: "21", selec: false },
 ];
 
 export default {
