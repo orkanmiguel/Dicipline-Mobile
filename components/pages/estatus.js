@@ -12,9 +12,10 @@ export default function () {
   async function getList() {
     const db = await SQLite.openDatabaseAsync("dbDiciplineTest");
     const result = await db.getAllAsync(
-      "SELECT (sum(reps) * sum(serie)) suma FROM routine"
+      "SELECT sum(reps * serie) suma FROM routine"
     );
-    console.log("result", result[0].suma);
+    console.log("result", result);
+
     setMAxReps(result[0].suma);
   }
 
