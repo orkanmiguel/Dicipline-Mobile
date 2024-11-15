@@ -32,9 +32,28 @@ import { styled } from "nativewind";
 import { rMS, rS, rV } from "./constants/responsive";
 import { vs } from "react-native-size-matters";
 
+import DropDownPicker from "react-native-dropdown-picker";
+
 const StyledPressable = styled(Pressable);
 
 export default function Todos() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([
+    "italy",
+    "spain",
+    "barcelona",
+    "finland",
+  ]);
+  const [items, setItems] = useState([
+    { label: "Pull Ups", value: "pullUps" },
+    { label: "Dips", value: "dips" },
+    { label: "Dips Anillas", value: "dipsAnillas" },
+    { label: "Push Up", value: "pushUp" },
+    { label: "Pistol Squat", value: "pistolSquat" },
+    { label: "Sentadillas", value: "sentadillas" },
+    { label: "Deadlift", value: "deathlift" },
+  ]);
+
   /*   const db = useSQLiteContext(); */
 
   const [name, setName] = useState("");
@@ -52,6 +71,7 @@ export default function Todos() {
   const weekData = createWeek.createWeek;
   console.log("createWeek", weekData);
   //TODO: esta variable sera la encargada de cargar los dias segun su numero.
+
   const [prevDay, setPrevDay] = useState([]);
 
   const [visibility, setVisibility] = useState(false);
@@ -376,6 +396,16 @@ export default function Todos() {
             )}
           </View>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
+            {/*    <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              searchable={true}
+            />
+ */}
             <TextInput
               style={styles.input}
               value={name}
