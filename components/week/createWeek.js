@@ -1,3 +1,5 @@
+//TODO: Crear obtencion de fecha empezando por el dia lunes
+
 const createWeek = [
   { day: "Lun", date: "14" },
   { day: "Mar", date: "15" },

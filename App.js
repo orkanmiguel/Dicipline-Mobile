@@ -26,6 +26,7 @@ export default function App() {
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
+      {/*  <StatusBar animated={true} backgroundColor="white" /> */}
       <Titulo />
 
       {/*   <Week /> */}

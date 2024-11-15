@@ -30,6 +30,7 @@ import * as SQLite from "expo-sqlite";
 
 import { styled } from "nativewind";
 import { rMS, rS, rV } from "./constants/responsive";
+import { vs } from "react-native-size-matters";
 
 const StyledPressable = styled(Pressable);
 
@@ -45,6 +46,7 @@ export default function Todos() {
   const [completed, setCompleted] = useState();
   const [prevRoutine, setPrevRoutines] = useState([]);
   const [routineID, setRoutineID] = useState("");
+  const [date, setDate] = useState("");
   const [visible, setVisible] = useState(false);
 
   const weekData = createWeek.createWeek;
@@ -102,13 +104,14 @@ export default function Todos() {
         reps,
         rest,
         weight,
-        day,
+        date,
         completed
       );
 
       Alert.alert("Ejercicio Agregado!");
 
-      getList();
+      /* getList(); */
+      SelectDay(date);
       clearInput();
       setVisibility(!visibility);
       setVisible(false);
@@ -119,7 +122,7 @@ export default function Todos() {
       clearInput();
       setVisibility(!visibility);
       setVisible(false); */
-  //TODO:Insercion basica para ver como se comporta con un delete
+  /*   //TODO:Insercion basica para ver como se comporta con un delete
   const inserta = async () => {
     const db = await SQLite.openDatabaseAsync("dbDiciplineTest");
 
@@ -129,7 +132,7 @@ export default function Todos() {
     );
 
     getList();
-  };
+  }; */
   /*   inserta(); */
 
   //TODO: Solo muestra muestra para editar datos del nombre y tiempo (Sera por que son string ?)
@@ -188,7 +191,8 @@ export default function Todos() {
         routineID
       );
 
-      getList();
+      /*    getList(); */
+      SelectDay(date);
       clearInput();
       setVisibility(!visibility);
       setVisible(false);
@@ -257,8 +261,71 @@ export default function Todos() {
     await db.runAsync("DELETE FROM routine WHERE id = ?", [id]);
 
     Alert.alert("Eliminado con exito");
+    SelectDay(date);
+    /*  getList(); */
+  };
 
-    getList();
+  const SelectDay = async (getDay) => {
+    //TODO:Aca se debe llamar la informacion segun el dia de la semana, para mostrar la rutina.
+    console.log("Select Day", getDay, day);
+    if (getDay === "Lun") {
+      /* day = "Lunes"; */
+      /*       setDay = "Lunes"; */
+      getDay = "Lunes";
+    }
+    if (getDay === "Mar") {
+      /* day = "Martes"; */
+      /*   setDay = "Martes"; */
+      getDay = "Martes";
+    }
+    if (getDay === "Mie") {
+      /*  day = "Miercoles"; */
+      /*     setDay = "Miercoles"; */
+      getDay = "Miercoles";
+    }
+    if (getDay === "Jue") {
+      /*   day = "Jueves"; */
+      /*     setDay = "Jueves"; */
+      getDay = "Jueves";
+    }
+    if (getDay === "Vie") {
+      /* day = "Viernes"; */
+      /*     setDay = "Viernes"; */
+      getDay = "Viernes";
+    }
+    if (getDay === "Sab") {
+      /*      setDay = "Sabado"; */
+      getDay = "Sabado";
+    }
+    if (getDay === "Dom") {
+      /* setDay = "Domingo"; */
+      getDay = "Domingo";
+    }
+
+    const db = await SQLite.openDatabaseAsync("dbDiciplineTest");
+
+    const allRows = await db.getAllAsync(
+      "SELECT * FROM routine WHERE day = ?",
+      [getDay]
+    );
+    let newArray = [];
+    for (const row of allRows) {
+      /* console.log(row.id, row.value, row.intValue); */
+      newArray.push({
+        id: row.id,
+        name: row.name,
+        serie: row.serie,
+        reps: row.reps,
+        rest: row.rest,
+        weight: row.weight,
+        day: row.day,
+        completed: row.completed,
+      });
+    }
+    console.log("id reviced", newArray.id);
+    setPrevRoutines(newArray);
+    setDate(getDay);
+    /*  console.log("date", date); */
   };
 
   useEffect(() => {
@@ -271,15 +338,10 @@ export default function Todos() {
        name TEXT, serie INTEGER, reps INTEGER, rest TEXT, weight NUMERIC,day TEXT, completed INTEGER
       );`);
 
-      getList();
+      SelectDay("Lun");
     }
     setup();
   }, []);
-
-  const SelectDay = (day) => {
-    //TODO:Aca se debe llamar la informacion segun el dia de la semana, para mostrar la rutina.
-    console.log("Select Day", day);
-  };
 
   return (
     <>
@@ -422,6 +484,7 @@ export default function Todos() {
           style={{
             flexDirection: "row",
             justifyContent: "center",
+            marginTop: rMS(36),
             //alignItems: "center",
           }}
         >
@@ -429,16 +492,18 @@ export default function Todos() {
           <View
             style={{
               flexDirection: "row",
-
-              marginHorizontal: rMS(1),
-              marginLeft: rMS(70),
-              marginRight: rMS(70),
+              justifyContent: "center",
+              alignItems: "center",
+              /* marginTop: rMS(33), */
+              /*  */
+              /* backgroundColor: "pink", */
             }}
           >
             {weekData.map((item, index) => {
               return (
                 <StyledPressable
                   key={index}
+                  style={{}}
                   className={"active:opacity-50 "}
                   onPress={() => SelectDay(item.day)}
                 >
@@ -471,14 +536,14 @@ export default function Todos() {
               return (
                 <View
                   key={index}
-                  style={{
-                    width: "100%",
-                    padding: 10,
-                    /* backgroundColor: "#ffe", */
-                    marginVertical: 10,
-                  }}
+                  style={
+                    {
+                      /* backgroundColor: "pink", */
+                      /* marginVertical: 10, */
+                    }
+                  }
                 >
-                  <View style={{ margin: rV(15) }}>
+                  <View style={{}}>
                     <Ejercicio routine={item}>
                       {/* //TODO: Editar Rutina y configurar botones de update y no insert */}
                       <StyledPressable
@@ -510,13 +575,14 @@ const styles = StyleSheet.create({
   container: {
     /*   backgroundColor: "black", */
     flex: 1,
+    /* justifyContent: "center", */
     marginTop: 10,
   },
   //TODO: Revisar para que el formulariom quede centrado, en un modal.
-  /*   view: {
+  view: {
     justifyContent: "center",
     alignItems: "center",
-  }, */
+  },
   scrollView: {
     borderRadius: 15,
     marginTop: 6,

@@ -9,7 +9,7 @@ import {
   View,
   Pressable,
 } from "react-native";
-
+import { rMS, rS, rV } from "../constants/responsive";
 import { styled } from "nativewind";
 
 const StyledPressable = styled(Pressable);
@@ -21,40 +21,29 @@ export default (props) => {
   const date = "7"; */
 
   return (
-    <View style={styles.container}>
-      <View style={styles.containerDay}>
-        <Text style={styles.day}>{day}</Text>
-        <Text style={styles.day}>{date}</Text>
-      </View>
+    <View style={styles.containerDay}>
+      <Text style={styles.day}>{day}</Text>
+      <Text style={styles.day}>{date}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    marginBottom: 25,
-    flex: 0.1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    /*     backgroundColor: "brown", */
-  },
   containerDay: {
     /*  backgroundColor: "brown", */
     justifyContent: "center",
     alignItems: "center",
-    color: "white",
-    borderRadius: 25,
-    borderWidth: 3,
+    borderRadius: 15,
+    borderWidth: 2,
     borderColor: "brown",
-    fontSize: 20,
-    width: 60,
-    height: 60,
+    width: rMS(44),
+    height: rMS(48),
+    marginHorizontal: rMS(0.5),
+    backgroundColor: "black",
   },
   day: {
     color: "yellow",
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
   },
 });

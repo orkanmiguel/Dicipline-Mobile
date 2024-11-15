@@ -4,7 +4,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { Link } from "expo-router";
 import StarRating from "react-native-star-rating-widget";
 import { useEffect, useState } from "react";
-
+import { rMS, rS, rV } from "../constants/responsive";
 import { styled } from "nativewind";
 
 const StyledPressable = styled(Pressable);
@@ -38,27 +38,28 @@ export default (props) => {
       colors={["rgba(0,0,0,1)", "transparent", "rgba(0,0,0,1)"]}
       style={styles.container}
     >
-      {/* TODO: Ver o revisar por que no manda a la pagina */}
-      <Link href={`${props.routine.name}`} asChild>
-        <StyledPressable className={"active:opacity-50"}>
-          <View style={styles.containerImg}>
-            <Image
-              style={styles.imagen}
-              source={require("../../assets/pullups.png")}
-            />
-          </View>
-        </StyledPressable>
-      </Link>
-      <View style={styles.ejercicio}>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            /*   backgroundColor: "pink", */
-          }}
-        >
-          {/* TODO: Por ahora maximo 7 series por ejercicio. */}
-          {/*  <StarRating
+      <View style={styles.card}>
+        {/* TODO: Ver o revisar por que no manda a la pagina */}
+        <Link href={`${props.routine.name}`} asChild>
+          <StyledPressable className={"active:opacity-50"}>
+            <View style={styles.containerImg}>
+              <Image
+                style={styles.imagen}
+                source={require("../../assets/pullups.png")}
+              />
+            </View>
+          </StyledPressable>
+        </Link>
+        <View style={styles.ejercicio}>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              /*   backgroundColor: "pink", */
+            }}
+          >
+            {/* TODO: Por ahora maximo 7 series por ejercicio. */}
+            {/*  <StarRating
             maxStars={serie}
             color={"yellow"}
             emptyColor={"white"}
@@ -67,43 +68,44 @@ export default (props) => {
             enableHalfStar={false}
             accessibilityAdjustmentLabel={`%${serie}% stars`}
           /> */}
-        </View>
+          </View>
 
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 30, fontWeight: "bold", color: "black" }}>
+              {name.slice(0, 10)} + {weight.slice(0, 6)}KG
+            </Text>
+          </View>
+
+          <View style={styles.reps}>
+            <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
+              {serie} X {reps}
+            </Text>
+
+            <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
+              {" "}
+              Descanso: {rest}
+            </Text>
+          </View>
+        </View>
         <View
           style={{
-            justifyContent: "center",
-            alignItems: "center",
+            height: 100,
+            flexDirection: "column",
+            justifyContent: "space-around",
+            marginRight: 5,
+            /* alignItems: "center", */
           }}
         >
-          <Text style={{ fontSize: 30, fontWeight: "bold", color: "black" }}>
-            {name} + {weight}KG
-          </Text>
+          {props.children[0]}
+          {props.children[1]}
+          {/* <EditIcon /> */}
+          {/* <DeleteIcon /> */}
         </View>
-
-        <View style={styles.reps}>
-          <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
-            {serie} X {reps}
-          </Text>
-
-          <Text style={{ fontSize: 25, fontWeight: "bold", color: "white" }}>
-            {" "}
-            Descanso: {rest}
-          </Text>
-        </View>
-      </View>
-      <View
-        style={{
-          height: 100,
-          flexDirection: "column",
-          justifyContent: "space-around",
-          marginRight: 5,
-          /* alignItems: "center", */
-        }}
-      >
-        {props.children[0]}
-        {props.children[1]}
-        {/* <EditIcon /> */}
-        {/* <DeleteIcon /> */}
       </View>
     </LinearGradient>
   );
@@ -130,7 +132,17 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "brown",
     borderRadius: 15,
-    height: 120,
+    /* width: rMS(350), */
+    margin: rMS(3),
+    /*    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center", */
+  },
+  card: {
+    /*     backgroundColor: "pink", */
+    /* width: rMS(350), */
+    /* position: "static", */
+    margin: rMS(2),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -141,13 +153,13 @@ const styles = StyleSheet.create({
     borderColor: "black",
   }, */
   imagen: {
-    width: 100,
-    height: 100,
+    width: rMS(80),
+    height: rMS(80),
     borderRadius: 15,
   },
   containerImg: {
     justifyContent: "center",
-    margin: 10,
+    margin: 5,
     /*  backgroundColor: "pink", */
     alignItems: "center",
   },
