@@ -104,6 +104,7 @@ export default function () {
         className={"active:opacity-50"}
         onPress={() => {
           getList();
+          getLun();
         }}
       >
         <Text>Actualizar</Text>
