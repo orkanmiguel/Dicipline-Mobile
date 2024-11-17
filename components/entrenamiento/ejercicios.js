@@ -84,7 +84,7 @@ export default (props) => {
                 borderColor: "black",
               }}
             >
-              {name.slice(0, 10)}
+              {name.slice(0, 15)}
             </Text>
           </View>
 
