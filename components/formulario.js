@@ -575,6 +575,7 @@ const styles = StyleSheet.create({
     flex: 1,
     /* justifyContent: "center", */
     marginTop: 10,
+    marginBottom: rMS(95),
   },
   //TODO: Revisar para que el formulariom quede centrado, en un modal.
   view: {
