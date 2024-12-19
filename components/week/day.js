@@ -16,6 +16,7 @@ const StyledPressable = styled(Pressable);
 
 export default (props) => {
   const day = props.day.day;
+
   const date = props.day.date;
   const select = props.day.selec;
   /* console.log("select", props); */
@@ -27,14 +28,14 @@ export default (props) => {
       {select ? (
         <>
           <View style={styles.containerDay} className="bg-red-800">
-            <Text style={styles.day}>{day}</Text>
+            <Text style={styles.day}>{day.slice(0, 3)}</Text>
             <Text style={styles.day}>{date}</Text>
           </View>
         </>
       ) : (
         <>
           <View style={styles.containerDay} className="bg-black">
-            <Text style={styles.day1}>{day}</Text>
+            <Text style={styles.day1}>{day.slice(0, 3)}</Text>
             <Text style={styles.day1}>{date}</Text>
           </View>
         </>
